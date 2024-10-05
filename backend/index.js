@@ -7,7 +7,7 @@ const {handleConnect} = require("./connection");
 const {checkUser} = require("./middleware/auth");
 //Hello
 //Hey
-//Kunal
+
 const app = express();
 const PORT = 8002;
 
