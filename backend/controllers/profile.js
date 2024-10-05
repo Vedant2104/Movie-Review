@@ -1,9 +1,9 @@
+const { set } = require('mongoose');
 const {User} = require('../models/user');
-
+const {setUser} = require('../services/auth');
 
 async function handleGetProfile(req,res) {
     const user = req.user;
-
     console.log(user);
     if(!user){
         return res.status(401).json({message:"Unauthorized"});
@@ -22,4 +22,29 @@ async function handleGetProfile(req,res) {
     }
 }
 
-module.exports = {handleGetProfile}
+async function handleUpdateUser (req,res){
+    const {email,fullName,phone,address} = req.body;
+  
+    if(!req.user){
+      console.log("value of req.user->",req.user);
+      return res.status(401).json({message:"login first ",success:"false"});
+    }
+    const user = await User.findOne({email:req.user.email});
+    if(!user){
+      return res.status(404).json({message:"email not existes signup first...",success:"false"});
+    }
+    const id = user._id;
+    const updatedUser = await User.findByIdAndUpdate({_id:id},{
+      email:email,
+      fullName:fullName,
+      phone:phone,
+      address:address,
+    });
+
+    const token = setUser(updatedUser);
+    res.cookie("uid",token);
+    console.log(user);
+    return res.status(200).json({message:"updated successfully...",success:"true",updatedUser:updatedUser});
+  }
+
+module.exports = {handleGetProfile,handleUpdateUser}

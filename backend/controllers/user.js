@@ -27,7 +27,7 @@ async function handleSignIn(req,res) {
         if(user) {
             const token  = setUser(user);
             res.cookie("uid",token);
-            return res.status(200).json({message:"Login successful"});
+            return res.status(200).json({message:"Login successful",jwtToken:token});
         }
         else {
             return res.status(401).json({message:"Invalid credentials"});
@@ -35,8 +35,13 @@ async function handleSignIn(req,res) {
     }
     catch(err) {
         console.log(err);
-        return res.status(500).json({message:"Something went wrong"});
+        return res.status(500).json({message:"Something went wrong",error:err});
     }
-}   
+
+}
+
+
+
+
 
 module.exports = {handleSignUp,handleSignIn}

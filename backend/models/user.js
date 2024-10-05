@@ -18,6 +18,14 @@ const userSchema = new mongoose.Schema({
         type : String,
         required : true,
         default : "USER"
+    },
+    phone:{
+        type:Number,
+        default:0
+    },
+    address:{
+        type:String,
+        default:"iiita"
     }
 },{timestamps : true})
 

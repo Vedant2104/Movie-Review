@@ -1,5 +1,7 @@
 const jwt = require("jsonwebtoken");
 const secret = "Vedant$999";
+// console.log(process.env.secret);
+// const secret = process.env.secret;
 
 function setUser(user) {
   return jwt.sign(

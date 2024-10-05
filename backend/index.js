@@ -5,30 +5,30 @@ const userRouter = require("./routes/user");
 const profileRouter = require("./routes/profile");
 const {handleConnect} = require("./connection");
 const {checkUser} = require("./middleware/auth");
-//Hello
-//Hey
+require('dotenv').config();
 
 const app = express();
-const PORT = 8002;
+// const PORT = 8002;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
+// app.use(cors());
 app.use(cors({
     origin:true,
     credentials:true
 }));
  
-
 handleConnect();
 
 app.use("/api/user" , userRouter);
 app.use("/api/profile",checkUser, profileRouter);
 
-app.use("/", (req, res) => {
+app.get("/", (req, res) => {
     res.send("Hello World");
 })
-app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
+console.log(process.env.PORT);
+app.listen(process.env.PORT, () => {
+    console.log(`Server is running on port ${process.env.PORT}`);
 });
 
