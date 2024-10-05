@@ -6,16 +6,15 @@ function UserProfile() {
   // State to manage the edit mode and user details
   const navigate = useNavigate()
   const [isEditing, setIsEditing] = useState(false);
-  // const [user,setUser] = useState(null);
+  const [message, setMessage] = useState('');
   const [userDetails, setUserDetails] = useState({
-    fullName: 'John Doe',
-    email: 'johndoe@example.com',
-    phone: '(123) 456-7890',
-    address: '123 Main St\nAnytown, USA 12345',
+    fullName: '',
+    email: '',
+    phone: '',
+    address: '',
   });
 
   useEffect(() => {
-
     const fetchUser = async () => {
       try {
         const response = await axios.get('http://localhost:8002/api/profile/user-info',{withCredentials:true});
@@ -23,13 +22,13 @@ function UserProfile() {
         if(!userData){
           console.log("User not found");
         }
-        console.log(userData);
+        console.log(userData.phone);
         // setUser(response.data.user);
         setUserDetails({
           fullName: userData.fullName,
           email: userData.email,
-          phone: '',
-          address: ''
+          phone: userData.phone ,
+          address: userData.address
         })
       } catch (error) {
         console.log(error);
@@ -37,9 +36,25 @@ function UserProfile() {
     }
 
     fetchUser();
-  },[navigate])
+  },[])
 
   
+  const UpdateUser = async (e) =>{
+    try{
+      const response = await axios.post('http://localhost:8002/api/profile/user-info/update',{
+        fullName : userDetails.fullName,
+        email : userDetails.email,
+        phone : userDetails.phone,
+        address: userDetails.address
+      },{withCredentials:true});
+      console.log("done");
+      setMessage('Profile updated successfully');
+    }
+    catch(err){
+      console.log(err);
+      setMessage(err.response.data.message);
+    }
+  }
 
   // Function to handle input changes
   const handleChange = (e) => {
@@ -52,6 +67,9 @@ function UserProfile() {
 
   // Toggle edit mode
   const toggleEdit = () => {
+    if(isEditing){
+      UpdateUser();
+    }
     setIsEditing(!isEditing);
   };
 
@@ -64,7 +82,7 @@ function UserProfile() {
             className="bg-red-500 hover:bg-red-700  text-white px-3 py-1 rounded"
             onClick={toggleEdit}
           >
-            {isEditing ? 'Save' : 'Edit'}
+            {isEditing ? 'Update' : 'Edit'}
           </button>
         </div>
 
@@ -132,18 +150,14 @@ function UserProfile() {
                     className="w-full border border-gray-300 rounded px-2 py-1"
                   />
                 ) : (
-                  userDetails.address.split('\n').map((line, index) => (
-                    <span key={index}>
-                      {line}
-                      <br />
-                    </span>
-                  ))
+                  userDetails.address
                 )}
               </dd>
             </div>
           </dl>
         </div>
       </div>
+          <p className='text-red-500 text-center font-thin'>{message}</p>
     </div>
   );
 }

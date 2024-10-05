@@ -19,13 +19,11 @@ const userSchema = new mongoose.Schema({
         required : true,
         default : "USER"
     },
-    phone:{
-        type:Number,
-        default:0
+    phone : {
+        type : String
     },
-    address:{
-        type:String,
-        default:"iiita"
+    address : {
+        type : String
     }
 },{timestamps : true})
 

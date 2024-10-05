@@ -7,33 +7,33 @@ import {
 } from "react-router-dom";
 import axios from 'axios';
 import potato from '../images/potato.png'
+import { useDispatch, useSelector } from 'react-redux';
+import {addUser,removeUser} from '../features/user/userSlice'
 
 export function SignIn() {
-
+  
   const [email,setEmail] = useState("");
   const [password,setPassword] = useState("");
   const [message,setMessage] = useState("");
   const navigate = useNavigate();
-  
+  const dispatch = useDispatch();
 
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    console.log(email)
     try {
-      console.log("helo")
       const response = await axios.post('http://localhost:8002/api/user/signin', {
         email,
         password,
       },{withCredentials:true});
 
-      
-      localStorage.setItem("userInfo", JSON.stringify(response.data.user));
+      const user = response.data.user;
+      dispatch(addUser(user));
       setMessage('Login successful');
       
       navigate('/');
     } catch (error) {
-      console.log(error.response.data);
+      console.log(error.response.user);
       setMessage('Login failed. Please check your credentials.');
     }
   };

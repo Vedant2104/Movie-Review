@@ -1,5 +1,5 @@
-'use client'
-
+import { useDispatch, useSelector } from 'react-redux';
+import {addUser,removeUser} from '../features/user/userSlice'
 import React, { useEffect } from 'react'
 import { Menu, X } from 'lucide-react'
 import {
@@ -8,43 +8,53 @@ import {
 
 import potato from '../images/potato.png'
 
-let menuItems = [
-  {
+
+export function Navbar() {
+  const [isMenuOpen, setIsMenuOpen] = React.useState(false)
+  const [menuItems, setMenuItems] = React.useState([{
     name: 'Home',
     href: './',
   },
   {
     name: 'About',
     href: '#',
-  },
-]
-
-export function Navbar() {
-  const [isMenuOpen, setIsMenuOpen] = React.useState(false)
+  },])
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen)
   }
-  let user;
-  // useEffect(() => {
-  //   user = JSON.parse(localStorage.getItem("userInfo"));
-  //   if(user){
+  let user = useSelector((state) => state.user.user);
+  const dispatch = useDispatch();
 
-  //     if(user.role == "ADMIN"){
-  //       menuItems.push({name:"Admin Page",href:"./admin"})
-  //     }
-  //     else{
-  //       menuItems.push({name:"User Page",href:"./user"})
-  //     }
-  //   }
-  // })
+  useEffect(() => {
+    if (user?.role === 'USER') {
+      setMenuItems([...menuItems, {
+        name: 'Profile',
+        href: './user',
+      }])
+    }
+    if (user?.role === 'ADMIN') {
+      setMenuItems([...menuItems, {
+        name: 'Admin',
+        href: './admin',
+      }])
+      
+    }
+  }, [user]);
   
-
+  
 
   const navigate = useNavigate();
   const handleSignOut = ()=>{
-    localStorage.removeItem("userInfo");
-    menuItems.pop();
+    dispatch(removeUser())
+    setMenuItems([{
+      name: 'Home',
+      href: './',
+    },
+    {
+      name: 'About',
+      href: '#',
+    },])
     console.log("Sign Out Successfull")
     navigate('/',{replace:true})
   }
@@ -60,8 +70,8 @@ export function Navbar() {
         </div>
         <div className="hidden lg:block">
           <ul className="inline-flex space-x-8">
-            {menuItems.map((item) => (
-              <li key={item.name}>
+            {menuItems.map((item,idx) => (
+              <li key={idx}>
                 <Link
                   to={item.href}
                   className="text-sm font-semibold text-rose-600 hover:text-red-100"

@@ -27,7 +27,7 @@ async function handleSignIn(req,res) {
         if(user) {
             const token  = setUser(user);
             res.cookie("uid",token);
-            return res.status(200).json({message:"Login successful",jwtToken:token});
+            return res.status(200).json({message:"Login successful",jwtToken:token,user:user});
         }
         else {
             return res.status(401).json({message:"Invalid credentials"});

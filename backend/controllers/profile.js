@@ -1,4 +1,3 @@
-const { set } = require('mongoose');
 const {User} = require('../models/user');
 const {setUser} = require('../services/auth');
 
@@ -13,7 +12,9 @@ async function handleGetProfile(req,res) {
         return res.status(200).json({
             fullName:user.fullName,
             email:user.email,
-            role:user.role
+            role:user.role,
+            phone:user.phone,
+            address:user.address
         });
     } catch (error) {
         console.log(error);
@@ -29,9 +30,9 @@ async function handleUpdateUser (req,res){
       console.log("value of req.user->",req.user);
       return res.status(401).json({message:"login first ",success:"false"});
     }
-    const user = await User.findOne({email:req.user.email});
+    const user = req.user;
     if(!user){
-      return res.status(404).json({message:"email not existes signup first...",success:"false"});
+      return res.status(404).json({message:"signup first...",success:"false"});
     }
     const id = user._id;
     const updatedUser = await User.findByIdAndUpdate({_id:id},{
@@ -39,7 +40,7 @@ async function handleUpdateUser (req,res){
       fullName:fullName,
       phone:phone,
       address:address,
-    });
+    },{new:true});
 
     const token = setUser(updatedUser);
     res.cookie("uid",token);
