@@ -1,7 +1,7 @@
 
 import './App.css'
 import { Navbar } from './components/Navbar'
-import { LogIn } from './components/LogIn'
+import { SignUp } from './components/SignUp'
 
 import {
   BrowserRouter as Router,
@@ -18,9 +18,9 @@ import  UserProfile from './components/UserProfile';
 
 function App() {
   let user;
-  useEffect(() => {
-    user = JSON.parse(localStorage.getItem("userInfo"));
-  })
+  // useEffect(() => {
+  //   user = JSON.parse(localStorage.getItem("userInfo"));
+  // })
   
   // console.log(user);
   return (
@@ -29,7 +29,7 @@ function App() {
         <Navbar />
         <Routes>
           <Route path="/sign-in" element={<SignIn />} />
-          <Route path="/sign-up" element={<LogIn />} />
+          <Route path="/sign-up" element={<SignUp />} />
           <Route path="/forgot" element={<Forgot/>} />
           <Route path="/" element={<MainMenu/>} />
           <Route path="/admin" element={<h1 className='text-4xl text-center'>Welcome to Admin Page , {user ? (<h1>{user.name}</h1>):(<></>)}</h1>} />

@@ -22,7 +22,7 @@ export function SignIn() {
     console.log(email)
     try {
       console.log("helo")
-      const response = await axios.post('http://192.168.149.232:8000/user/signin', {
+      const response = await axios.post('http://localhost:8002/api/user/signin', {
         email,
         password,
       },{withCredentials:true});

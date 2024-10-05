@@ -1,14 +1,45 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import {useNavigate} from 'react-router-dom'
 
 function UserProfile() {
   // State to manage the edit mode and user details
+  const navigate = useNavigate()
   const [isEditing, setIsEditing] = useState(false);
+  // const [user,setUser] = useState(null);
   const [userDetails, setUserDetails] = useState({
     fullName: 'John Doe',
     email: 'johndoe@example.com',
     phone: '(123) 456-7890',
     address: '123 Main St\nAnytown, USA 12345',
   });
+
+  useEffect(() => {
+
+    const fetchUser = async () => {
+      try {
+        const response = await axios.get('http://localhost:8002/api/profile/user-info',{withCredentials:true});
+        const userData = response.data;
+        if(!userData){
+          console.log("User not found");
+        }
+        console.log(userData);
+        // setUser(response.data.user);
+        setUserDetails({
+          fullName: userData.fullName,
+          email: userData.email,
+          phone: '',
+          address: ''
+        })
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+    fetchUser();
+  },[navigate])
+
+  
 
   // Function to handle input changes
   const handleChange = (e) => {

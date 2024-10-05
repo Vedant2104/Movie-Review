@@ -8,7 +8,7 @@ import {
 import potato from '../images/potato.png'
 import axios from 'axios';
 
-export function LogIn() {
+export function SignUp() {
 
   const [email,setEmail] = useState("");
   const [fullName,setFullName] = useState("");
@@ -17,38 +17,68 @@ export function LogIn() {
   const [message,setMessage] = useState("");
   const navigate = useNavigate();
 
+  // const handleLogin = async (e) => {
+  //   e.preventDefault();
+
+  //   console.log(email)
+  //   try {
+  //     console.log("helo")
+
+  //     if(password != cnfpass){
+  //       setMessage('Passwords do not match');
+  //       return;
+  //     }
+  //     console.log(fullName)
+  //     const response = await axios.post('http://192.168.149.232:8000/user/signup', {
+  //       fullName,
+  //       email,
+  //       password,
+  //     },{
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //       },
+  //     });
+
+      
+  //     setMessage('Login successful');
+      
+  //     navigate('/sign-in');
+  //   } catch (error) {
+  //     console.log(error.response.data);
+  //     setMessage('Login failed. Please check your credentials.');
+  //   }
+  // };
+
   const handleLogin = async (e) => {
     e.preventDefault();
 
     console.log(email)
-    try {
-      console.log("helo")
-
-      if(password != cnfpass){
-        setMessage('Passwords do not match');
-        return;
-      }
-      console.log(fullName)
-      const response = await axios.post('http://192.168.149.232:8000/user/signup', {
+    setMessage('');
+    if(password != cnfpass){
+      setMessage('Passwords do not match');
+      return;
+    }
+    if(!email || !password || !fullName){
+      setMessage('Please fill all the fields');
+      return;
+    }
+    try{
+      const response  = await axios.post("http://localhost:8002/api/user/signup", {
         fullName,
         email,
         password,
-      },{
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-
-      
+      },{headers:{
+        'Content-Type': 'application/json',
+      }});
+      console.log(response);
       setMessage('Login successful');
-      
-      navigate('/sign-in');
-    } catch (error) {
-      console.log(error.response.data);
+      navigate('/Sign-in');
+    }
+    catch(err){
+      console.log(err)
       setMessage('Login failed. Please check your credentials.');
     }
-  };
-
+  }
   return (
 
   
@@ -71,7 +101,7 @@ export function LogIn() {
               Sign-In
             </Link>
           </p>
-          <form action="#" method="POST" className="mt-8">
+          <form onSubmit={handleLogin} className="mt-8">
             <div className="space-y-5">
             <div>
                 <label htmlFor="" className="text-base font-medium text-gray-900">
@@ -82,6 +112,7 @@ export function LogIn() {
                   <input
                     className="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
                     type="text"
+                    name = "fullName"
                     placeholder="Name"
                     value = {fullName}
                     onChange={(e)=>{setFullName(e.target.value)}}
@@ -97,6 +128,7 @@ export function LogIn() {
                   <input
                     className="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
                     type="email"
+                    name = "email"
                     placeholder="Email"
                     value = {email}
                     onChange={(e)=>{setEmail(e.target.value)}}
@@ -115,6 +147,7 @@ export function LogIn() {
                   <input
                     className="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
                     type="password"
+                    name  = "password"
                     placeholder="Password"
                     value = {password}
                     onChange={(e)=>{setPassword(e.target.value)}}
@@ -143,9 +176,9 @@ export function LogIn() {
               </div>
               <div>
                 <button
-                  type="button"
+                  type="submit"
                   className="inline-flex w-full items-center justify-center rounded-md bg-black px-3.5 py-2.5 font-semibold leading-7 text-white hover:bg-black/80"
-                  onClick={handleLogin}
+                  
                 >
                   Create <ArrowRight className="ml-2" size={16} />
                 </button>

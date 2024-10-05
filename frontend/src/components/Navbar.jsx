@@ -26,18 +26,18 @@ export function Navbar() {
     setIsMenuOpen(!isMenuOpen)
   }
   let user;
-  useEffect(() => {
-    user = JSON.parse(localStorage.getItem("userInfo"));
-    if(user){
+  // useEffect(() => {
+  //   user = JSON.parse(localStorage.getItem("userInfo"));
+  //   if(user){
 
-      if(user.role == "ADMIN"){
-        menuItems.push({name:"Admin Page",href:"./admin"})
-      }
-      else{
-        menuItems.push({name:"User Page",href:"./user"})
-      }
-    }
-  })
+  //     if(user.role == "ADMIN"){
+  //       menuItems.push({name:"Admin Page",href:"./admin"})
+  //     }
+  //     else{
+  //       menuItems.push({name:"User Page",href:"./user"})
+  //     }
+  //   }
+  // })
   
 
 
