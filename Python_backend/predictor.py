@@ -53,5 +53,5 @@ if __name__=="__main__":
         s=input()
         if s=='-1':
             break
-        example=encodeReview(s)
-        print("positive" if makePrediction(example) else "negative")
+        example=encodeReview(s, save_map)
+        print("positive" if makePrediction(example,model1, model2,model3) else "negative")
