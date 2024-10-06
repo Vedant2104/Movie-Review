@@ -20,7 +20,7 @@ def cleanReview(review):
     review=cleantext.clean(review, clean_all= False, extra_spaces=True , stopwords=True ,lowercase=True ,numbers=True , punct=True)
     return review
 
-def encodeReview(review, save_map):
+def encodeReview(review):
     review=cleanReview(review)
     encoded_review=[1,]
 
@@ -30,14 +30,12 @@ def encodeReview(review, save_map):
             encoded_review.append(save_map[word])
         else:
             encoded_review.append(2)
-
-    encoded_review=np.array(encoded_review)
-    encoded_review=np.reshape(encoded_review, (1,len(encoded_review)))
+    
     encoded_review=pad_sequences(encoded_review,maxlen=2697)
 
     return encoded_review
 
-def makePrediction(review, model1, model2, model3):
+def makePrediction(df, model1, model2, model3, length):
     rnn_pred=1 if model1.predict(review)[0][0]>0.5 else 0
     gru_pred=1 if model2.predict(review)[0][0]>0.5 else 0
     lstm_pred=1 if model3.predict(review)[0][0]>0.5 else 0
@@ -54,4 +52,5 @@ if __name__=="__main__":
         if s=='-1':
             break
         example=encodeReview(s, save_map)
-        print("positive" if makePrediction(example,model1, model2,model3) else "negative")
+        print(example)
+        #print("positive" if makePrediction(example,model1, model2,model3) else "negative")
