@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-from predictor import loadEncoder, encodeReview, makePrediction, cleanReview
+from predictor import loadEncoder, encodeReview, makePrediction, cleanReview, predictOnDataFrame
 from scraper import start
 from pre_process import make_review
 from keras.models import load_model
@@ -37,10 +37,12 @@ def make_analysis():
     if 'ImdbId' in data and 'limit' in data:
         ImdbId = data['ImdbId']
         limit = data['limit']
-        #make_review(ImdbId, limit)
-        df = pd.read_csv("IMDB Dataset.csv")
+        make_review(ImdbId, limit)
+        df = pd.read_csv(f"tester_{ImdbId}.csv")
+        df = predictOnDataFrame(df, "review", model1, model2, model3, dictionary)
         #df = makePrediction(df, model1, model2, model3, len(df))
-        result = df[:20].to_dict(orient='records')
+        df.drop("Unnamed: 0", axis=1, inplace=True)
+        result = df.to_dict(orient='records')
         return jsonify(result)
 
 if __name__ == '__main__':
