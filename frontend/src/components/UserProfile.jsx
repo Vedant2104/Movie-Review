@@ -4,7 +4,7 @@ import {useNavigate} from 'react-router-dom'
 
 function UserProfile() {
   // State to manage the edit mode and user details
-  const navigate = useNavigate()
+  
   const [isEditing, setIsEditing] = useState(false);
   const [message, setMessage] = useState('');
   const [userDetails, setUserDetails] = useState({
