@@ -1,3 +1,4 @@
+const { default: mongoose } = require('mongoose');
 const {User} = require('../models/user');
 const {setUser} = require('../services/auth');
 
@@ -48,4 +49,14 @@ async function handleUpdateUser (req,res){
     return res.status(200).json({message:"updated successfully...",success:"true",updatedUser:updatedUser});
   }
 
-module.exports = {handleGetProfile,handleUpdateUser}
+  async function handleAdminPage(req,res) {
+    const user = req.user;
+    console.log(user,"handleAdminPage");
+    const allUser = await User.find({});
+    return res.status(201).json({allUser:allUser,message:"jai ho",success:true});
+
+  }
+
+  
+
+module.exports = {handleGetProfile,handleUpdateUser,handleAdminPage}

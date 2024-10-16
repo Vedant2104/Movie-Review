@@ -24,7 +24,13 @@ const userSchema = new mongoose.Schema({
     },
     address : {
         type : String
-    }
+    },
+    resetPasswordOtp:{
+        type:Number,
+      },
+      resetPasswordOtpExpires:{
+        type:Number,
+      },
 },{timestamps : true})
 
 const User = mongoose.model('User',userSchema);

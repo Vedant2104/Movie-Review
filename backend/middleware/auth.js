@@ -16,4 +16,17 @@ async function checkUser(req,res,next) {
     next();
     
 }
-module.exports = {checkUser}
+
+const checkAdmin = async (req,res,next) =>{
+    const user = req.user;
+    if(!req.user){
+        console.log("value of req.user->",req.user);
+        return res.status(401).json({message:"login first ",success:"false"});
+      }
+    console.log(user);
+    if(user.role === "ADMIN"){
+        next();
+    }
+    else return res.status(404).json({message:"user is not admin",success:false});
+}
+module.exports = {checkUser,checkAdmin};
