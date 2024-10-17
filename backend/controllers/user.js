@@ -135,5 +135,23 @@ const handleResetPassword = async (req,res)=>{
   }
 }
 
+const handleChangeRole = async(req,res) => {
+    console.log(req.user);
+    const {id,role} = req.body;
+    if(!req.user){
+        return res.status(404).json({message:"login first...",success:true});
+    }
+    if(req.user.role !== "ADMIN"){
+        return res.status(404).json({message:"user is not admin",success:false});
+    }
+    const user = await User.findById(id);
+    if(!user){
+        return res.status(404).json({message:"user not found",success:false});
+    }
+    user.role = role;
+    await user.save();
+    return res.status(200).json({message:"role changed success fully",success:true});
+}
 
-module.exports = {handleSignUp,handleSignIn,handleLogout,handleForgotPassword,handleResetPassword}
+
+module.exports = {handleSignUp,handleSignIn,handleLogout,handleForgotPassword,handleResetPassword,handleChangeRole}

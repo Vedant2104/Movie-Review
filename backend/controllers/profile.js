@@ -54,9 +54,5 @@ async function handleUpdateUser (req,res){
     console.log(user,"handleAdminPage");
     const allUser = await User.find({});
     return res.status(201).json({allUser:allUser,message:"jai ho",success:true});
-
   }
-
-  
-
 module.exports = {handleGetProfile,handleUpdateUser,handleAdminPage}
