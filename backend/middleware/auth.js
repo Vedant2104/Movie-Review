@@ -27,6 +27,6 @@ const checkAdmin = async (req,res,next) =>{
     if(user.role === "ADMIN"){
         next();
     }
-    else return res.status(404).json({message:"user is not admin",success:false});
+    else return res.status(404).json({message:"user is not admin",success:false,user:user.role});
 }
 module.exports = {checkUser,checkAdmin};

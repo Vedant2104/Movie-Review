@@ -13,6 +13,7 @@ import MainMenu from './components/MainMenu';
 import Forgot from './components/Forgot';
 import { useEffect } from 'react';
 import  UserProfile from './components/UserProfile';
+import Admin from './components/Admin';
 
 
 
@@ -32,7 +33,7 @@ function App() {
           <Route path="/sign-up" element={<SignUp />} />
           <Route path="/forgot" element={<Forgot/>} />
           <Route path="/" element={<MainMenu/>} />
-          <Route path="/admin" element={<h1 className='text-4xl text-center'>Welcome to Admin Page , {user ? (<h1>{user.name}</h1>):(<></>)}</h1>} />
+          <Route path="/admin" element={<Admin/>} />
           <Route path="/user" element={<UserProfile/>} />
         </Routes>
       </Router>
