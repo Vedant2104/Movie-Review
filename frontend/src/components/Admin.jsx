@@ -4,6 +4,7 @@ import axios from 'axios';
 function Admin() {
   const [users, setUsers] = useState([]);
 
+
   useEffect(() => {
     const fetchUsers = async () => {
       try {
@@ -19,6 +20,30 @@ function Admin() {
     };
     fetchUsers();
   }, []);
+
+
+  const handleRoleChange = (id, newRole) => {
+    setUsers((prevUsers) =>
+      prevUsers.map((user) =>
+        user._id === id ? { ...user, role: newRole } : user
+      )
+    );
+  };
+
+  // Save the updated user role via POST request
+  const handleSave = async (user) => {
+    try {
+      await axios.post(
+        'http://localhost:8002/api/user/change-role',
+        { id: user._id, role: user.role }, // Posting user ID and new role
+        { withCredentials: true }
+      );
+      
+    } catch (error) {
+      console.error('Failed to update user role:', error);
+      alert('Failed to update user role.');
+    }
+  };
 
   return (
     <div className="text-gray-900 bg-gray-200 min-h-screen">
@@ -64,15 +89,19 @@ function Admin() {
                   <td className="p-3 px-5">
                     <select
                       value={user.role}
+                      onChange={(e) =>
+                        handleRoleChange(user._id, e.target.value)
+                      }
                       className="bg-transparent border-b-2 border-gray-300 py-2 w-full"
                     >
-                      <option value="user">user</option>
-                      <option value="admin">admin</option>
+                      <option value="USER">USER</option>
+                      <option value="ADMIN">ADMIN</option>
                     </select>
                   </td>
                   <td className="p-3 px-5 flex justify-end">
                     <button
                       type="button"
+                      onClick={() => handleSave(user)}
                       className="mr-3 text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline"
                     >
                       Save

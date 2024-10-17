@@ -1,9 +1,46 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import React, { useState } from "react";
+import axios from "axios";
 
 export default function MainMenu() {
-  const [movie, setMovie] = useState('');
-  const [movieData, setData] = useState([]);
+  const [movie, setMovie] = useState("");
+  const [movieData, setData] = useState([
+    {
+      Title: "The Shawshank Redemption",
+      Year: "1994",
+      imdbID: "tt0111161",
+      Type: "movie",
+      Poster:
+        "https://m.media-amazon.com/images/M/MV5BMDAyY2FhYjctNDc5OS00MDNlLThiMGUtY2UxYWVkNGY2ZjljXkEyXkFqcGc@._V1_SX300.jpg",
+    },
+    {
+      Title: "The Godfather",
+      Year: "1972",
+      imdbID: "tt0068646",
+      Type: "movie",
+      Poster:
+        "https://m.media-amazon.com/images/M/MV5BYTJkNGQyZDgtZDQ0NC00MDM0LWEzZWQtYzUzZDEwMDljZWNjXkEyXkFqcGc@._V1_SX300.jpg",
+    },
+    {
+      Title: "The Dark Knight",
+      Year: "2008",
+      imdbID: "tt0468569",
+      Type: "movie",
+      Poster:
+        "https://m.media-amazon.com/images/M/MV5BMTMxNTMwODM0NF5BMl5BanBnXkFtZTcwODAyMTk2Mw@@._V1_SX300.jpg",
+    },{
+      "Title": "The Lord of the Rings: The Fellowship of the Ring",
+      "Year": "2001",
+      "imdbID": "tt0120737",
+      "Type": "movie",
+      "Poster": "https://m.media-amazon.com/images/M/MV5BNzIxMDQ2YTctNDY4MC00ZTRhLTk4ODQtMTVlOWY4NTdiYmMwXkEyXkFqcGc@._V1_SX300.jpg"
+    },{
+      "Title": "Pulp Fiction",
+      "Year": "1994",
+      "imdbID": "tt0110912",
+      "Type": "movie",
+      "Poster": "https://m.media-amazon.com/images/M/MV5BYTViYTE3ZGQtNDBlMC00ZTAyLTkyODMtZGRiZDg0MjA2YThkXkEyXkFqcGc@._V1_SX300.jpg"
+    }
+  ]);
 
   const handleSearch = async (e) => {
     e.preventDefault();
@@ -12,8 +49,9 @@ export default function MainMenu() {
         `https://api.collectapi.com/imdb/imdbSearchByName?query=${movie}`,
         {
           headers: {
-            'Content-Type': 'application/json',
-            authorization: 'apikey 7Lns3oudyBAHwT1ZmeVdBf:1E9bAZpA23z4WxKgTG8LFS',
+            "Content-Type": "application/json",
+            authorization:
+              "apikey 7Lns3oudyBAHwT1ZmeVdBf:1E9bAZpA23z4WxKgTG8LFS",
           },
         }
       );
@@ -55,14 +93,14 @@ export default function MainMenu() {
               key={movie.imdbID}
               className="m-6 relative rounded-lg shadow-lg group"
               style={{
-                width: '250px',
-                height: '350px',
-                background: 'rgba(255, 255, 255, 0.5)', // Light translucent background
-                backdropFilter: 'blur(15px)', // Blur for glass effect
-                WebkitBackdropFilter: 'blur(15px)', // Safari support
-                border: '1px solid rgba(255, 255, 255, 0.3)', // Subtle border for better look
-                borderRadius: '15px',
-                overflow: 'hidden',
+                width: "250px",
+                height: "350px",
+                background: "rgba(255, 255, 255, 0.5)", // Light translucent background
+                backdropFilter: "blur(15px)", // Blur for glass effect
+                WebkitBackdropFilter: "blur(15px)", // Safari support
+                border: "1px solid rgba(255, 255, 255, 0.3)", // Subtle border for better look
+                borderRadius: "15px",
+                overflow: "hidden",
               }}
             >
               <div className="relative pt-10 px-10 flex items-center justify-center group-hover:scale-110 transition-transform">
@@ -73,7 +111,9 @@ export default function MainMenu() {
                 />
               </div>
               <div className="relative text-black px-6 pb-2 mt-6">
-                <span className="block opacity-75 -mb-1">Year: {movie.Year}</span>
+                <span className="block opacity-75 -mb-1">
+                  Year: {movie.Year}
+                </span>
                 <div className="flex justify-between items-center">
                   <span className="block font-semibold text-xl truncate">
                     {movie.Title}
