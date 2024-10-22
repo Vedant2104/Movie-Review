@@ -1,6 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 import json, os
+import pandas as pd
 
 def scrapeReviews(soup, ImdbId):
     try:
@@ -65,10 +66,18 @@ def start_scraping(ImdbId, limit):
         'reviews': reviews
     }
 
-def start(ImdbId, limit):
+
+
+def make_review(ImdbId, limit):
     data = start_scraping(ImdbId, limit)
-    os.makedirs("reviews", exist_ok=True)
+    #print(data)
+    df = pd.DataFrame(data['reviews'])
+    #print(df.head())
+    
+    df["reviews"] = df['short_review'] + df['full_review']
+    df.drop(['short_review', 'full_review'], axis=1, inplace=True)
+    return df
 
-    with open(f'reviews/reviews_{ImdbId}.json', 'w') as json_file:
-        json.dump(data, json_file)
-
+if __name__ == "__main__":
+    df = make_review("tt0468569", 10)
+    print(df)

@@ -1,2 +1,18 @@
 backend/node_modules/
 frontend/node_modules/
+
+# Ignore the .venv directory
+python_backend/.venv/
+
+# Ignore Python cache files
+python_backend/__pycache__/
+python_backend/*.py[cod]
+python_backend/*$py.class
+
+# Ignore other common virtual environment folders
+python_backend/env/
+python_backend/venv/
+
+# Ignore virtual environment specific files
+python_backend/pip-log.txt
+python_backend/pip-delete-this-directory.txt
