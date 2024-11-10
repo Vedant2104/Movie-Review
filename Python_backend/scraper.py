@@ -80,4 +80,4 @@ def make_review(ImdbId, limit):
 
 if __name__ == "__main__":
     df = make_review("tt0468569", 10)
-    print(df)
+    #print(df)
