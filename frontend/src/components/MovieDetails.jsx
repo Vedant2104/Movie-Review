@@ -1,27 +1,37 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import { Download } from 'lucide-react';
 
 const MovieDetails = () => {
   const { id } = useParams();
   const [movie, setMovie] = useState(null);
+  const [reviews, setReviews] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchMovieDetails = async () => {
+    const fetchData = async () => {
       try {
         setLoading(true);
-        const response = await axios.get(
-          `https://api.collectapi.com/imdb/imdbSearchById?movieId=${id}`,
-          {
-            headers: {
-              "Content-Type": "application/json",
-              authorization: "apikey 7Lns3oudyBAHwT1ZmeVdBf:1E9bAZpA23z4WxKgTG8LFS",
-            },
-          }
-        );
-        setMovie(response.data.result);
+        const [movieResponse, reviewsResponse] = await Promise.all([
+          axios.get(
+            `https://api.collectapi.com/imdb/imdbSearchById?movieId=${id}`,
+            {
+              headers: {
+                "Content-Type": "application/json",
+                authorization: "apikey 7Lns3oudyBAHwT1ZmeVdBf:1E9bAZpA23z4WxKgTG8LFS",
+              },
+            }
+          ),
+          axios.post('http://127.0.0.1:5000//dataset-analysis', {
+            ImdbId: id,
+            limit: 20
+          })
+        ]);
+        
+        setMovie(movieResponse.data.result);
+        setReviews(reviewsResponse.data);
       } catch (err) {
         setError(err.message);
       } finally {
@@ -29,8 +39,35 @@ const MovieDetails = () => {
       }
     };
 
-    fetchMovieDetails();
+    fetchData();
   }, [id]);
+
+  const downloadCSV = () => {
+    // Create CSV content
+    const csvContent = [
+      ['Review', 'Sentiment'], // Header row
+      ...reviews.map(review => [
+        `"${review.reviews.replace(/"/g, '""')}"`, // Escape quotes in reviews
+        review.sentiment
+      ])
+    ].map(row => row.join(',')).join('\n');
+
+    // Create blob and download link
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    const url = URL.createObjectURL(blob);
+    
+    // Set up download
+    link.setAttribute('href', url);
+    link.setAttribute('download', `${movie.Title.replace(/\s+/g, '_')}_reviews.csv`);
+    link.style.visibility = 'hidden';
+    
+    // Trigger download
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  };
 
   if (loading) {
     return (
@@ -55,7 +92,7 @@ const MovieDetails = () => {
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="bg-white rounded-lg shadow-lg overflow-hidden max-w-4xl mx-auto">
-        {/* Header Section */}
+        {/* Movie Details Header */}
         <div className="p-6 border-b">
           <div className="flex justify-between items-start">
             <div>
@@ -71,7 +108,7 @@ const MovieDetails = () => {
           </div>
         </div>
 
-        {/* Content Section */}
+        {/* Movie Content */}
         <div className="p-6">
           <div className="grid md:grid-cols-3 gap-6">
             {/* Poster Column */}
@@ -137,17 +174,42 @@ const MovieDetails = () => {
                 <h3 className="font-semibold mb-2">Cast</h3>
                 <p className="text-gray-600">{movie.Actors}</p>
               </div>
-              
-              <div>
-                <h3 className="font-semibold mb-2">Ratings</h3>
-                <div className="grid grid-cols-3 gap-4">
-                  {movie.Ratings?.map((rating) => (
-                    <div key={rating.Source} className="bg-gray-50 p-3 rounded-lg">
-                      <p className="text-sm text-gray-500">{rating.Source}</p>
-                      <p className="font-semibold">{rating.Value}</p>
+            </div>
+
+            {/* Reviews Section */}
+            <div className="md:col-span-3 mt-8">
+              <div className="flex justify-between items-center mb-6">
+                <h2 className="text-2xl font-bold">User Reviews</h2>
+                <button
+                  onClick={downloadCSV}
+                  className="flex items-center gap-2 px-4 py-2 bg-red-700 text-white rounded-lg hover:bg-red-400 transition-colors"
+                >
+                  <Download size={16} />
+                  Download Reviews
+                </button>
+              </div>
+              <div className="grid gap-6">
+                {reviews.map((review, index) => (
+                  <div
+                    key={index}
+                    className={`p-6 rounded-lg shadow-md ${
+                      review.sentiment === 'positive' 
+                        ? 'bg-green-50 border border-green-200' 
+                        : 'bg-red-50 border border-red-200'
+                    }`}
+                  >
+                    <p className="text-gray-800 text-lg">{review.reviews}</p>
+                    <div className="mt-4 flex items-center">
+                      <span className={`px-3 py-1 rounded-full text-sm font-medium ${
+                        review.sentiment === 'positive' 
+                          ? 'bg-green-200 text-green-800' 
+                          : 'bg-red-200 text-red-800'
+                      }`}>
+                        {review.sentiment}
+                      </span>
                     </div>
-                  ))}
-                </div>
+                  </div>
+                ))}
               </div>
             </div>
           </div>

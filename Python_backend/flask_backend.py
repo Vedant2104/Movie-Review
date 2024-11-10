@@ -26,10 +26,7 @@ def make_analysis():
         ImdbId = data['ImdbId']
         limit = data['limit']
         df = make_review(ImdbId, limit)
-        #df = pd.read_csv(f"tester_{ImdbId}.csv")
         df = predictOnDataFrame(df, "reviews", model1, model2, model3, dictionary)
-        #df = makePrediction(df, model1, model2, model3, len(df))
-        #df.drop("Unnamed: 0", axis=1, inplace=True)
         result = df.to_dict(orient='records')
 
         client = MongoClient('mongodb://localhost:27017/')
