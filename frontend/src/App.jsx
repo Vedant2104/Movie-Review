@@ -14,6 +14,7 @@ import Forgot from './components/Forgot';
 import { useEffect } from 'react';
 import  UserProfile from './components/UserProfile';
 import Admin from './components/Admin';
+import MovieDetails from './components/MovieDetails';
 
 
 
@@ -35,6 +36,7 @@ function App() {
           <Route path="/" element={<MainMenu/>} />
           <Route path="/admin" element={<Admin/>} />
           <Route path="/user" element={<UserProfile/>} />
+          <Route path="/movie/:id" element={<MovieDetails />} />
         </Routes>
       </Router>
     </>

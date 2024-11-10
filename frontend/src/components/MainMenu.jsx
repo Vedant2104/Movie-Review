@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router";
 
 export default function MainMenu() {
+  const navigate = useNavigate();
   const [movie, setMovie] = useState("");
   const [movieData, setData] = useState([
     {
@@ -54,7 +56,9 @@ export default function MainMenu() {
               "apikey 7Lns3oudyBAHwT1ZmeVdBf:1E9bAZpA23z4WxKgTG8LFS",
           },
         }
+        
       );
+      
       setData(response.data.result);
       console.log(response.data.result);
     } catch (error) {
@@ -62,12 +66,16 @@ export default function MainMenu() {
     }
   };
 
+  const handleMovieClick = (imdbID) => {
+    navigate(`/movie/${imdbID}`);
+  };
+
   return (
     <div>
       {/* Search Form */}
       <form
         onSubmit={handleSearch}
-        className="mt-10 mx-auto max-w-xl py-2 px-6 rounded-full bg-gray-50 border flex focus-within:border-gray-300"
+        className="mt-10 mx-auto sticky top-24 z-10 max-w-xl py-2 px-6 rounded-full bg-gray-50 border flex focus-within:border-gray-300"
       >
         <input
           type="text"
@@ -91,17 +99,18 @@ export default function MainMenu() {
           movieData.map((movie) => (
             <div
               key={movie.imdbID}
-              className="m-6 relative rounded-lg shadow-lg group"
+              className="m-6 relative rounded-lg shadow-lg group bg-cyan-200 bg-opacity-15 cursor-pointer hover:shadow-xl transition-shadow"
               style={{
                 width: "250px",
                 height: "350px",
-                background: "rgba(255, 255, 255, 0.5)", // Light translucent background
+                // background: "rgba(255, 255, 255, 0.5)", // Light translucent background
                 backdropFilter: "blur(15px)", // Blur for glass effect
                 WebkitBackdropFilter: "blur(15px)", // Safari support
                 border: "1px solid rgba(255, 255, 255, 0.3)", // Subtle border for better look
                 borderRadius: "15px",
                 overflow: "hidden",
               }}
+              onClick={() => handleMovieClick(movie.imdbID)}
             >
               <div className="relative pt-10 px-10 flex items-center justify-center group-hover:scale-110 transition-transform">
                 <img
