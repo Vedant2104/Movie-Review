@@ -72,39 +72,44 @@ const MovieDetails = () => {
 
   if (loadingMovie) {
     return (
-      <div className="flex items-center justify-center min-h-screen bg-white dark:bg-gray-900">
+      <div className="flex items-center justify-center min-h-screen">
         <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"></div>
-        <p className="ml-4 text-lg font-medium text-gray-900 dark:text-white">Loading Movie Details...</p>
+        <p className="ml-4 text-lg font-medium">Loading Movie Details...</p>
       </div>
     );
   }
 
   if (movieError) {
     return (
-      <div className="flex items-center justify-center min-h-screen bg-white dark:bg-gray-900">
+      <div className="flex items-center justify-center min-h-screen">
         <p className="text-red-500 text-center">{movieError}</p>
       </div>
     );
   }
 
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="container mx-auto px-4 py-8 dark:bg-gray-900 dark:text-white">
       <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden max-w-4xl mx-auto">
         {/* Header Section */}
         <div className="p-6 border-b dark:border-gray-700">
           <div className="flex justify-between items-start">
             <div>
-              <h1 className="text-3xl font-bold text-gray-900 dark:text-white">{movie.Title}</h1>
-              <p className="text-gray-500 dark:text-gray-300">{movie.Year} • {movie.Rated}</p>
+              <h1 className="text-3xl font-bold">{movie.Title}</h1>
+              <p className="text-gray-500 mt-2 dark:text-gray-400">
+                {movie.Year} • {movie.Rated} • {movie.Runtime}
+              </p>
             </div>
             <div className="flex items-center space-x-2">
-              <span className="font-bold text-gray-900 dark:text-white">{movie.imdbRating}</span>
+              <svg className="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+              </svg>
+              <span className="font-bold">{movie.imdbRating}</span>
             </div>
           </div>
         </div>
 
         {/* Movie Details Section */}
-        <div className="p-6 grid md:grid-cols-3 gap-6 dark:text-white">
+        <div className="p-6 grid md:grid-cols-3 gap-6">
           <div className="md:col-span-1">
             <img
               src={movie.Poster}
@@ -132,9 +137,22 @@ const MovieDetails = () => {
           </div>
         </div>
 
+        {/* Ratings Section */}
+        <div className="p-6">
+          <h3 className="font-semibold mb-2">Ratings</h3>
+          <div className="grid grid-cols-3 gap-4">
+            {movie.Ratings?.map((rating) => (
+              <div key={rating.Source} className="bg-gray-50 dark:bg-gray-700 p-3 rounded-lg">
+                <p className="text-sm text-gray-500 dark:text-gray-300">{rating.Source}</p>
+                <p className="font-semibold">{rating.Value}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
         {/* Reviews Section */}
         <div className="p-6">
-          <h2 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">User Reviews</h2>
+          <h2 className="text-2xl font-bold mb-4">User Reviews</h2>
           <button
             onClick={downloadCSV}
             className="flex items-center px-4 py-2 bg-red-700 text-white rounded-lg hover:bg-red-500"
@@ -144,12 +162,12 @@ const MovieDetails = () => {
           </button>
 
           {loadingReviews ? (
-            <p className="text-gray-900 dark:text-white">Loading Reviews...</p>
+            <p>Loading Reviews...</p>
           ) : reviewsError ? (
             <p className="text-red-500">Error loading reviews: {reviewsError}</p>
           ) : (
             reviews.map((review, index) => (
-              <div key={index} className="border p-4 mt-2 bg-white dark:bg-gray-800">
+              <div key={index} className="border dark:border-gray-600 p-4 mt-2">
                 <p>{review.reviews}</p>
                 <span className="block mt-1 text-sm text-gray-500 dark:text-gray-400">
                   Sentiment: {review.sentiment}
