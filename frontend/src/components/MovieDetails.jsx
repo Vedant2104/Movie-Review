@@ -167,11 +167,24 @@ const MovieDetails = () => {
             <p className="text-red-500">Error loading reviews: {reviewsError}</p>
           ) : (
             reviews.map((review, index) => (
-              <div key={index} className="border dark:border-gray-600 p-4 mt-2">
-                <p>{review.reviews}</p>
-                <span className="block mt-1 text-sm text-gray-500 dark:text-gray-400">
-                  Sentiment: {review.sentiment}
-                </span>
+              <div
+                key={index}
+                className={`p-6 rounded-lg shadow-md ${
+                  review.sentiment === 'positive' 
+                    ? 'bg-green-50 border border-green-200' 
+                    : 'bg-red-50 border border-red-200'
+                }`}
+              >
+                <p className="text-gray-800 text-lg">{review.reviews}</p>
+                <div className="mt-4 flex items-center">
+                  <span className={`px-3 py-1 rounded-full text-sm font-medium ${
+                    review.sentiment === 'positive' 
+                      ? 'bg-green-200 dark:bg-green-900 dark:text-green-200 text-green-800' 
+                      : 'bg-red-200 dark:bg-red-900 dark:text-red-200 text-red-800'
+                  }`}>
+                    {review.sentiment}
+                  </span>
+                </div>
               </div>
             ))
           )}
