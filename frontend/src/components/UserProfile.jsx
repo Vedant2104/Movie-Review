@@ -75,29 +75,29 @@ function UserProfile() {
 
   return (
     <div className="max-w-2xl m-auto my-5">
-      <div className="bg-white overflow-hidden shadow rounded-lg border">
+      <div className="bg-white dark:bg-gray-800 overflow-hidden shadow rounded-lg border dark:border-gray-700">
         <div className="px-4 py-5 sm:px-6 flex justify-between items-center">
-          <h3 className="text-lg leading-6 font-medium text-gray-900">Your Profile</h3>
+          <h3 className="text-lg leading-6 font-medium text-gray-900 dark:text-white">Your Profile</h3>
           <button
-            className="bg-red-500 hover:bg-red-700  text-white px-3 py-1 rounded"
+            className="bg-red-500 hover:bg-red-700 text-white px-3 py-1 rounded"
             onClick={toggleEdit}
           >
             {isEditing ? 'Update' : 'Edit'}
           </button>
         </div>
 
-        <div className="border-t border-gray-200 px-4 py-5 sm:p-0">
-          <dl className="sm:divide-y sm:divide-gray-200">
+        <div className="border-t border-gray-200 dark:border-gray-700 px-4 py-5 sm:p-0">
+          <dl className="sm:divide-y sm:divide-gray-200 dark:divide-gray-700">
             <div className="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-              <dt className="text-sm font-medium text-gray-500">Full name</dt>
-              <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+              <dt className="text-sm font-medium text-gray-500 dark:text-gray-400">Full name</dt>
+              <dd className="mt-1 text-sm text-gray-900 dark:text-gray-300 sm:mt-0 sm:col-span-2">
                 {isEditing ? (
                   <input
                     type="text"
                     name="fullName"
                     value={userDetails.fullName}
                     onChange={handleChange}
-                    className="w-full border border-gray-300 rounded px-2 py-1"
+                    className="w-full border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded px-2 py-1"
                   />
                 ) : (
                   userDetails.fullName
@@ -105,16 +105,17 @@ function UserProfile() {
               </dd>
             </div>
 
+            {/* Repeat similar pattern for email, phone, and address fields */}
             <div className="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-              <dt className="text-sm font-medium text-gray-500">Email address</dt>
-              <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+              <dt className="text-sm font-medium text-gray-500 dark:text-gray-400">Email address</dt>
+              <dd className="mt-1 text-sm text-gray-900 dark:text-gray-300 sm:mt-0 sm:col-span-2">
                 {isEditing ? (
                   <input
                     type="email"
                     name="email"
                     value={userDetails.email}
                     onChange={handleChange}
-                    className="w-full border border-gray-300 rounded px-2 py-1"
+                    className="w-full border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded px-2 py-1"
                   />
                 ) : (
                   userDetails.email
@@ -123,15 +124,15 @@ function UserProfile() {
             </div>
 
             <div className="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-              <dt className="text-sm font-medium text-gray-500">Phone number</dt>
-              <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+              <dt className="text-sm font-medium text-gray-500 dark:text-gray-400">Phone number</dt>
+              <dd className="mt-1 text-sm text-gray-900 dark:text-gray-300 sm:mt-0 sm:col-span-2">
                 {isEditing ? (
                   <input
                     type="text"
                     name="phone"
                     value={userDetails.phone}
                     onChange={handleChange}
-                    className="w-full border border-gray-300 rounded px-2 py-1"
+                    className="w-full border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded px-2 py-1"
                   />
                 ) : (
                   userDetails.phone
@@ -140,14 +141,14 @@ function UserProfile() {
             </div>
 
             <div className="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-              <dt className="text-sm font-medium text-gray-500">Address</dt>
-              <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+              <dt className="text-sm font-medium text-gray-500 dark:text-gray-400">Address</dt>
+              <dd className="mt-1 text-sm text-gray-900 dark:text-gray-300 sm:mt-0 sm:col-span-2">
                 {isEditing ? (
                   <textarea
                     name="address"
                     value={userDetails.address}
                     onChange={handleChange}
-                    className="w-full border border-gray-300 rounded px-2 py-1"
+                    className="w-full border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded px-2 py-1"
                   />
                 ) : (
                   userDetails.address
@@ -157,7 +158,7 @@ function UserProfile() {
           </dl>
         </div>
       </div>
-          <p className='text-red-500 text-center font-thin'>{message}</p>
+      <p className='text-red-500 text-center font-thin'>{message}</p>
     </div>
   );
 }

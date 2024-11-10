@@ -42,22 +42,22 @@ function Admin() {
   };
 
   return (
-    <div className="text-gray-900 p-2 h-fit bg-blue-gray-50 w-11/12 m-auto rounded-md">
+    <div className="p-2 h-fit w-11/12 m-auto rounded-lg bg-red-50 dark:bg-blue-gray-900">
       {/* Header */}
       <div className="p-4 flex justify-between items-center">
-        <h1 className="text-3xl font-semibold">Users</h1>
+        <h1 className="text-3xl font-semibold text-red-900 dark:text-red-50">Users</h1>
       </div>
 
       {/* Table Container */}
       <div className="px-3 py-4">
         <div className="overflow-x-auto">
-          <table className="w-full text-sm md:text-md bg-white shadow-md rounded-lg">
+          <table className="w-full text-sm md:text-md rounded-lg shadow-xl bg-white dark:bg-gray-800">
             <thead>
-              <tr className="border-b bg-gray-100">
-                <th className="text-left p-3 px-5">Name</th>
-                <th className="text-left p-3 px-5">Email</th>
-                <th className="text-left p-3 px-5">Role</th>
-                <th className="p-3 px-5 text-right">Actions</th>
+              <tr className="border-b border-red-200 dark:border-red-900/10 bg-red-100 dark:bg-gray-800">
+                <th className="text-left p-3 px-5 text-red-900 dark:text-red-200">Name</th>
+                <th className="text-left p-3 px-5 text-red-900 dark:text-red-200">Email</th>
+                <th className="text-left p-3 px-5 text-red-900 dark:text-red-200">Role</th>
+                <th className="p-3 px-5 text-right text-red-900 dark:text-red-200">Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -65,14 +65,14 @@ function Admin() {
                 users.map((user) => (
                   <tr
                     key={user._id}
-                    className="border-b hover:bg-teal-50 bg-gray-50"
+                    className="border-b border-red-100 dark:border-red-900/10 hover:bg-red-50 dark:hover:bg-red-900/20 bg-white dark:bg-gray-800 transition-colors duration-200"
                   >
                     <td className="p-3 px-5">
                       <input
                         type="text"
                         value={user.fullName}
                         readOnly
-                        className="bg-transparent border-b-2 border-gray-300 py-1 w-full"
+                        className="bg-transparent border-b border-red-200 dark:border-red-900/20 py-1 w-full text-red-900 dark:text-red-100 focus:border-red-500"
                       />
                     </td>
                     <td className="p-3 px-5">
@@ -80,16 +80,14 @@ function Admin() {
                         type="text"
                         value={user.email}
                         readOnly
-                        className="bg-transparent border-b-2 border-gray-300 py-1 w-full"
+                        className="bg-transparent border-b border-red-200 dark:border-red-900/20 py-1 w-full text-red-900 dark:text-red-100 focus:border-red-500"
                       />
                     </td>
                     <td className="p-3 px-5">
                       <select
                         value={user.role}
-                        onChange={(e) =>
-                          handleRoleChange(user._id, e.target.value)
-                        }
-                        className="bg-transparent border-b-2 border-gray-300 py-1 w-full"
+                        onChange={(e) => handleRoleChange(user._id, e.target.value)}
+                        className="bg-transparent dark:bg-red-900/20 border-b border-red-200 dark:border-red-900/20 py-1 w-full text-red-900 dark:text-red-100 rounded focus:outline-none focus:ring-2 focus:ring-red-500"
                       >
                         <option value="USER">USER</option>
                         <option value="ADMIN">ADMIN</option>
@@ -99,13 +97,13 @@ function Admin() {
                       <button
                         type="button"
                         onClick={() => handleSave(user)}
-                        className="text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline"
+                        className="text-sm bg-red-700 text-red-50 hover:bg-red-600 dark:bg-red-800 dark:hover:bg-red-700 py-1 px-2 rounded focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-1 transition-all duration-200 shadow-md"
                       >
                         Save
                       </button>
                       <button
                         type="button"
-                        className="text-sm bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline"
+                        className="text-sm bg-red-800 text-red-50 hover:bg-red-700 dark:bg-red-900 dark:hover:bg-red-800 py-1 px-2 rounded focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-1 transition-all duration-200 shadow-md"
                       >
                         Delete
                       </button>
@@ -114,7 +112,7 @@ function Admin() {
                 ))
               ) : (
                 <tr>
-                  <td colSpan="4" className="text-center p-4">
+                  <td colSpan="4" className="text-center p-4 text-red-500 dark:text-red-400">
                     No users found.
                   </td>
                 </tr>

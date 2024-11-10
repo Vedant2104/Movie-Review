@@ -103,8 +103,8 @@ export function Navbar() {
       <div className="max-w-7xl mx-auto px-4 navbar-container">
         <div className={`relative transition-colors duration-300 ${
           isDarkTheme 
-            ? 'bg-gradient-to-r from-gray-900 to-black text-white' 
-            : 'bg-gradient-to-r from-red-50 to-white text-gray-900'
+            ? 'bg-gradient-to-r from-blue-gray-800 to-black text-white' 
+            : 'bg-gradient-to-r from-red-100 to-gray-300 text-gray-900'
           } rounded-full mx-auto flex items-center justify-between px-4 py-3 sm:px-6 lg:px-8 shadow-xl`}>
           {/* Rest of the navbar content remains the same... */}
           {/* Logo and Brand */}

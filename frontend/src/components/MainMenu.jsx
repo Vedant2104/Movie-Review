@@ -75,38 +75,37 @@ export default function MainMenu() {
       {/* Search Form */}
       <form
         onSubmit={handleSearch}
-        className="mt-10 mx-auto sticky top-24 z-10 max-w-xl py-2 px-6 rounded-full bg-gray-50 border flex focus-within:border-gray-300"
+        className="mt-10 mx-auto top-24 z-10 max-w-xl py-2 px-6 rounded-full bg-gray-50 dark:bg-gray-800 border dark:border-gray-700 flex focus-within:border-gray-300"
       >
         <input
           type="text"
           value={movie}
           placeholder="Search for movies"
-          className="bg-transparent w-full focus:outline-none pr-4 font-semibold border-0 focus:ring-0 px-0 py-0"
+          className="bg-transparent w-full focus:outline-none pr-4 font-semibold border-0 focus:ring-0 px-0 py-0 dark:text-white dark:placeholder-gray-400"
           onChange={(e) => setMovie(e.target.value)}
           required
         />
         <button
           type="submit"
-          className="flex flex-row items-center justify-center min-w-[130px] px-4 rounded-full font-medium tracking-wide border disabled:cursor-not-allowed disabled:opacity-50 transition ease-in-out duration-150 text-base bg-black text-white border-transparent py-1.5 h-[38px] -mr-3"
+          className="flex flex-row items-center justify-center min-w-[130px] px-4 rounded-full font-medium tracking-wide border disabled:cursor-not-allowed disabled:opacity-50 transition ease-in-out duration-150 text-base bg-black dark:bg-gray-700 text-white border-transparent py-1.5 h-[38px] -mr-3"
         >
           Search
         </button>
       </form>
 
-      {/* Movie Cards with Glass Effect */}
+      {/* Movie Cards */}
       <div className="p-1 flex flex-wrap items-center justify-center">
         {movieData.length > 0 ? (
           movieData.map((movie) => (
             <div
               key={movie.imdbID}
-              className="m-6 relative rounded-lg shadow-lg group bg-cyan-200 bg-opacity-15 cursor-pointer hover:shadow-xl transition-shadow"
+              className="m-6 relative rounded-lg shadow-lg group bg-cyan-200 dark:bg-gray-800 bg-opacity-15 cursor-pointer hover:shadow-xl transition-shadow"
               style={{
                 width: "250px",
                 height: "350px",
-                // background: "rgba(255, 255, 255, 0.5)", // Light translucent background
-                backdropFilter: "blur(15px)", // Blur for glass effect
-                WebkitBackdropFilter: "blur(15px)", // Safari support
-                border: "1px solid rgba(255, 255, 255, 0.3)", // Subtle border for better look
+                backdropFilter: "blur(15px)",
+                WebkitBackdropFilter: "blur(15px)",
+                border: "1px solid rgba(255, 255, 255, 0.3)",
                 borderRadius: "15px",
                 overflow: "hidden",
               }}
@@ -119,7 +118,7 @@ export default function MainMenu() {
                   alt={movie.Title}
                 />
               </div>
-              <div className="relative text-black px-6 pb-2 mt-6">
+              <div className="relative text-black dark:text-white px-6 pb-2 mt-6">
                 <span className="block opacity-75 -mb-1">
                   Year: {movie.Year}
                 </span>
@@ -132,7 +131,7 @@ export default function MainMenu() {
             </div>
           ))
         ) : (
-          <p className="text-gray-500 mt-10">No movies found. Try searching!</p>
+          <p className="text-gray-500 dark:text-gray-400 mt-10">No movies found. Try searching!</p>
         )}
       </div>
     </div>
