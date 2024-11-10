@@ -89,7 +89,7 @@ const MovieDetails = () => {
 
   return (
     <div className="container mx-auto px-4 py-8 dark:bg-gray-900 dark:text-white">
-      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden max-w-4xl mx-auto">
+      <div className="bg-white dark:bg-[#0E1117] rounded-lg shadow-lg overflow-hidden max-w-4xl mx-auto">
         {/* Header Section */}
         <div className="p-6 border-b dark:border-gray-700">
           <div className="flex justify-between items-start">
@@ -140,9 +140,9 @@ const MovieDetails = () => {
         {/* Ratings Section */}
         <div className="p-6">
           <h3 className="font-semibold mb-2">Ratings</h3>
-          <div className="grid grid-cols-3 gap-4">
+          <div className="grid grid-cols-3 gap-4 ">
             {movie.Ratings?.map((rating) => (
-              <div key={rating.Source} className="bg-gray-50 dark:bg-gray-700 p-3 rounded-lg">
+              <div key={rating.Source} className="bg-gray-50 dark:bg-blue-gray-800 p-3 rounded-lg">
                 <p className="text-sm text-gray-500 dark:text-gray-300">{rating.Source}</p>
                 <p className="font-semibold">{rating.Value}</p>
               </div>
@@ -169,16 +169,20 @@ const MovieDetails = () => {
             reviews.map((review, index) => (
               <div
                 key={index}
-                className={`p-6 rounded-lg shadow-md ${
+                className={`p-6 rounded-lg shadow-md m-4 ${
                   review.sentiment === 'positive' 
-                    ? 'bg-green-50 border border-green-200' 
-                    : 'bg-red-50 border border-red-200'
+                    ? 'bg-green-50  dark:bg-[#173928] dark:text-light-green-300 text-green-800 border border-green-200 dark:border-green-900' 
+                    : 'bg-red-50 border dark:bg-[#3E2428] dark:text-[#FED7D7] text-red-800 dark:border-[#FED7D7] border-red-200'
                 }`}
               >
-                <p className="text-gray-800 text-lg">{review.reviews}</p>
+                <p className={`${
+                  review.sentiment === 'positive' 
+                    ? 'text-green-700 dark:text-green-100' 
+                    : 'text-red-600 dark:text-red-200'
+                }`}>{review.reviews}</p>
                 <div className="mt-4 flex items-center">
                   <span className={`px-3 py-1 rounded-full text-sm font-medium ${
-                    review.sentiment === 'positive' 
+                    review.sentiment === 'positive'   
                       ? 'bg-green-200 dark:bg-green-900 dark:text-green-200 text-green-800' 
                       : 'bg-red-200 dark:bg-red-900 dark:text-red-200 text-red-800'
                   }`}>
