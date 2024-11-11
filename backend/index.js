@@ -3,6 +3,7 @@ const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const userRouter = require("./routes/user");
 const profileRouter = require("./routes/profile");
+const movieRouter = require("./routes/movie");
 const {handleConnect} = require("./connection");
 const {checkUser} = require("./middleware/auth");
 require('dotenv').config();
@@ -23,6 +24,7 @@ handleConnect();
 
 app.use("/api/user" , userRouter);
 app.use("/api/profile",checkUser, profileRouter);
+app.use("/api/movie", movieRouter);
 
 app.get("/", (req, res) => {
     res.send("Hello World");
