@@ -14,6 +14,7 @@ import UserProfile from './components/UserProfile';
 import Admin from './components/Admin';
 import MovieDetails from './components/MovieDetails';
 import { ThemeProvider } from './context/ThemeContext';
+import AboutPage from './components/About';
 
 function App() {
   let user;
@@ -36,6 +37,7 @@ function App() {
               <Route path="/admin" element={<Admin/>} />
               <Route path="/user" element={<UserProfile/>} />
               <Route path="/movie/:id" element={<MovieDetails />} />
+              <Route path="/about" element={<AboutPage/>} />
             </Routes>
           </main>
         </Router>

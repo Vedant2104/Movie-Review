@@ -24,7 +24,7 @@ export function Navbar() {
   // Base menu items
   const baseMenuItems = [
     { name: 'Home', href: './' },
-    { name: 'About', href: '#' },
+    { name: 'About', href: '/about' },
   ];
 
   // Handle scroll behavior
@@ -132,7 +132,7 @@ export function Navbar() {
                           ? 'text-white bg-gradient-to-r from-red-800 to-red-900 shadow-md'
                           : 'text-red-900 bg-gradient-to-r from-red-100 to-red-200 shadow-md'
                         : isDarkTheme
-                          ? 'text-red-300 hover:text-red-200 hover:bg-red-950'
+                          ? 'text-red-300 hover:text-red-200 hover:bg-blue-gray-800'
                           : 'text-red-700 hover:text-red-800 hover:bg-red-50'
                       }`}
                     role="menuitem"
@@ -171,31 +171,20 @@ export function Navbar() {
                 Sign Out
               </button>
             ) : (
-              <div className="flex shadow-md">
+              <div className="flex">
                 <Link to="/Sign-in">
                   <button
                     type="button"
-                    className={`transition-all duration-200 rounded-l-md ${
+                    className={`transition-all duration-200 rounded-md ${
                       isDarkTheme
-                        ? 'bg-gradient-to-r from-red-700 to-red-800 text-red-50 hover:from-red-600 hover:to-red-700'
-                        : 'bg-gradient-to-r from-red-100 to-red-200 text-red-900 hover:from-red-200 hover:to-red-300'
-                    } px-4 py-2 text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-1`}
+                        ? 'bg-gradient-to-r from-red-300 to-red-900 text-red-50 hover:from-red-600 hover:to-red-700'
+                        : 'bg-gradient-to-r from-red-500 to-red-200 text-red-800 hover:from-red-200 hover:to-red-300'
+                    } px-4 py-2 text-sm font-semibold focus:outline-none  focus:ring-red-500 focus:ring-offset-1`}
                   >
                     Sign In
                   </button>
                 </Link>
-                <Link to="/Sign-up">
-                  <button
-                    type="button"
-                    className={`transition-all duration-200 rounded-r-md ${
-                      isDarkTheme
-                        ? 'bg-gradient-to-r from-red-800 to-red-900 text-red-50 hover:from-red-700 hover:to-red-800'
-                        : 'bg-gradient-to-r from-red-200 to-red-300 text-red-900 hover:from-red-300 hover:to-red-400'
-                    } px-4 py-2 text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-1`}
-                  >
-                    Sign Up
-                  </button>
-                </Link>
+                
               </div>
             )}
           </div>
@@ -257,7 +246,7 @@ export function Navbar() {
                     </Link>
                   ))}
                 </div>
-                <div className="py-3">
+                <div className="py-3 ">
                   {user ? (
                     <button
                       type="button"
@@ -286,17 +275,7 @@ export function Navbar() {
                       >
                         Sign In
                       </Link>
-                      <Link
-                        to="/Sign-up"
-                        className={`block px-4 py-2 text-sm rounded-md transition-colors duration-200 ${
-                          isDarkTheme
-                            ? 'text-red-200 hover:bg-red-900/50'
-                            : 'text-red-900 hover:bg-red-100'
-                        }`}
-                        onClick={() => setIsMenuOpen(false)}
-                      >
-                        Sign Up
-                      </Link>
+                      
                     </div>
                   )}
                 </div>

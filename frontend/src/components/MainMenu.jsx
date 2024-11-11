@@ -41,7 +41,14 @@ export default function MainMenu() {
       "imdbID": "tt0110912",
       "Type": "movie",
       "Poster": "https://m.media-amazon.com/images/M/MV5BYTViYTE3ZGQtNDBlMC00ZTAyLTkyODMtZGRiZDg0MjA2YThkXkEyXkFqcGc@._V1_SX300.jpg"
+    },{
+        "Title": "How I Met Your Mother",
+        "Year": "2005–2014",
+        "imdbID": "tt0460649",
+        "Type": "series",
+        "Poster": "https://m.media-amazon.com/images/M/MV5BNjg1MDQ5MjQ2N15BMl5BanBnXkFtZTYwNjI5NjA3._V1_SX300.jpg"
     }
+    
   ]);
 
   const handleSearch = async (e) => {
@@ -87,7 +94,7 @@ export default function MainMenu() {
         />
         <button
           type="submit"
-          className="flex flex-row items-center justify-center min-w-[130px] px-4 rounded-full font-medium tracking-wide border disabled:cursor-not-allowed disabled:opacity-50 transition ease-in-out duration-150 text-base bg-black dark:bg-gray-700 text-white border-transparent py-1.5 h-[38px] -mr-3"
+          className="flex flex-row items-center justify-center min-w-[130px] px-4 rounded-full font-medium tracking-wide border disabled:cursor-not-allowed disabled:opacity-50 transition ease-in-out duration-150 text-base bg-red-500 dark:bg-[#0E1117] text-white border-transparent py-1.5 h-[38px] -mr-3"
         >
           Search
         </button>
@@ -99,13 +106,13 @@ export default function MainMenu() {
           movieData.map((movie) => (
             <div
               key={movie.imdbID}
-              className="m-6 relative rounded-lg shadow-lg group bg-cyan-200 dark:bg-gray-800 bg-opacity-15 cursor-pointer hover:shadow-xl transition-shadow"
+              className="m-6 relative rounded-lg shadow-lg group bg-red-100 dark:bg-[#0E1117]  bg-opacity-15 cursor-pointer hover:shadow-xl transition-shadow"
               style={{
                 width: "250px",
                 height: "350px",
                 backdropFilter: "blur(15px)",
                 WebkitBackdropFilter: "blur(15px)",
-                border: "1px solid rgba(255, 255, 255, 0.3)",
+                
                 borderRadius: "15px",
                 overflow: "hidden",
               }}

@@ -45,15 +45,15 @@ export function SignIn() {
           <div className="mb-2 flex justify-center">
             <img src = {potato}/>
           </div>
-          <h2 className="text-center text-2xl font-bold leading-tight text-black">
+          <h2 className="text-center text-2xl font-bold leading-tight dark:text-red-100 text-black">
             Sign in to your account
           </h2>
-          <p className="mt-2 text-center text-sm text-gray-600 ">
+          <p className="mt-2 text-center text-sm text-gray-400 ">
             Don&apos;t have an account?{' '}
             <Link
               to="/sign-up"
               title=""
-              className="font-semibold text-black transition-all duration-200 hover:underline"
+              className="font-semibold dark:text-red-100 text-black transition-all duration-200 hover:underline"
             >
               Create a free account
             </Link>
@@ -61,7 +61,7 @@ export function SignIn() {
           <form action="#" method="POST" className="mt-8">
             <div className="space-y-5">
               <div>
-                <label htmlFor="" className="text-base font-medium text-gray-900">
+                <label htmlFor="" className="text-base font-medium dark:text-red-100 text-gray-900">
                   {' '}
                   Email address{' '}
                 </label>
@@ -77,11 +77,11 @@ export function SignIn() {
               </div>
               <div>
                 <div className="flex items-center justify-between">
-                  <label htmlFor="" className="text-base font-medium text-gray-900">
+                  <label htmlFor="" className="text-base font-medium dark:text-red-100 text-gray-900">
                     {' '}
                     Password{' '}
                   </label>
-                  <Link to="/forgot" title="" className="text-sm font-semibold text-black hover:underline">
+                  <Link to="/forgot" title="" className="text-sm font-semibold dark:text-red-100 text-black hover:underline">
                     {' '}
                     Forgot password?{' '}
                   </Link>
@@ -100,7 +100,7 @@ export function SignIn() {
                 <button
                   // type="submit"
                   onClick={handleLogin}
-                  className="inline-flex w-full items-center justify-center rounded-md bg-black px-3.5 py-2.5 font-semibold leading-7 text-white hover:bg-black/80"
+                  className="inline-flex w-full items-center justify-center dark:text-red-100 rounded-md bg-black px-3.5 py-2.5 font-semibold leading-7 text-white hover:bg-black/80"
                 >
                   Get started <ArrowRight className="ml-2" size={16} />
                 </button>

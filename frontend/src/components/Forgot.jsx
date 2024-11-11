@@ -68,16 +68,16 @@ export default function Forgot() {
           <div className="mb-2 flex justify-center">
           <img src = {potato}/>
           </div>
-          <h2 className="text-center text-2xl font-bold leading-tight text-black">
+          <h2 className="text-center text-2xl font-bold leading-tight dark:text-red-100 text-black">
             Forgot Password?
           </h2>
-          <p className="mt-2 text-center text-sm text-gray-600 ">
+          <p className="mt-2 text-center text-sm text-gray-400 ">
             You can Reset your password here!
           </p>
           <form action="#" method="POST" className="mt-8">
             <div className="space-y-5">
               <div>
-                <label htmlFor="" className="text-base font-medium text-gray-900">
+                <label htmlFor="" className="text-base font-medium dark:text-red-100 text-gray-900">
                   {' '}
                   Email address{' '}
                 </label>
@@ -95,7 +95,7 @@ export default function Forgot() {
               <div>
                 <button
                   type="button"
-                  className="inline-flex items-center justify-center rounded-md bg-black px-3.5 py-2.5 font-semibold leading-7 text-white hover:bg-black/80"
+                  className="inline-flex items-center dark:text-red-100 justify-center rounded-md bg-black px-3.5 py-2.5 font-semibold leading-7 text-white hover:bg-black/80"
                   onClick = {()=>{handleSendOtp()}}
                 >
                   Get OTP <ArrowRight className="ml-2" size={16} />
@@ -108,7 +108,7 @@ export default function Forgot() {
                 <div className='my-4'>
                 <div >
                 <div className="flex items-center justify-between">
-                  <label htmlFor="" className="text-base font-medium text-gray-900">
+                  <label htmlFor="" className="text-base dark:text-red-100 font-medium text-gray-900">
                     {' '}
                     Password{' '}
                   </label>
@@ -127,7 +127,7 @@ export default function Forgot() {
               </div>
               <div>
                 <div className="flex items-center justify-between">
-                  <label htmlFor="" className="text-base font-medium text-gray-900">
+                  <label htmlFor="" className="text-base font-medium dark:text-red-100 text-gray-900">
                     {' '}
                     Confirm Password{' '}
                   </label>
@@ -147,7 +147,7 @@ export default function Forgot() {
               <div>
                 <button
                   type="button"
-                  className="inline-flex w-full my-4 items-center justify-center rounded-md bg-black px-3.5 py-2.5 font-semibold leading-7 text-white hover:bg-black/80"
+                  className="inline-flex w-full my-4 items-center justify-center dark:text-red-100 rounded-md bg-black px-3.5 py-2.5 font-semibold leading-7 text-white hover:bg-black/80"
                   onClick = {()=>{handleChangePassword()}}
                 >
                   Change Password <ArrowRight className="ml-2" size={16} />
@@ -158,7 +158,7 @@ export default function Forgot() {
                 (<div className='my-4'>
                 <div>
                 <div className="flex items-center justify-between">
-                  <label htmlFor="" className="text-base font-medium text-gray-900">
+                  <label htmlFor="" className="text-base font-medium dark:text-red-100 text-gray-900">
                     {' '}
                     OTP{' '}
                   </label>
@@ -179,7 +179,7 @@ export default function Forgot() {
               <div>
                 <button
                   type="button"
-                  className="my-4 inline-flex w-full items-center justify-center rounded-md bg-black px-3.5 py-2.5 font-semibold leading-7 text-white hover:bg-black/80"
+                  className="my-4 inline-flex w-full items-center justify-center rounded-md dark:text-red-100 bg-black px-3.5 py-2.5 font-semibold leading-7 text-white hover:bg-black/80"
                   onClick={()=>{
                     setBool(true)
                   }}
