@@ -88,15 +88,15 @@ export function SignUp() {
           <div className="mb-2 flex justify-center">
           <img src = {potato}/>
           </div>
-          <h2 className="text-center text-2xl font-bold leading-tight text-black">
+          <h2 className="text-center text-2xl font-bold leading-tight text-black dark:text-red-100">
             Create a new account
           </h2>
-          <p className="mt-2 text-center text-sm text-gray-600 ">
+          <p className="mt-2 text-center text-sm text-gray-600 dark:text-gray-400 ">
             Already has a account ?
             <Link
               to="/Sign-in"
               title=""
-              className="font-semibold text-black transition-all duration-200 hover:underline"
+              className="font-semibold text-black dark:text-red-50 transition-all duration-200 hover:underline"
             >
               Sign-In
             </Link>
@@ -104,7 +104,7 @@ export function SignUp() {
           <form onSubmit={handleLogin} className="mt-8">
             <div className="space-y-5">
             <div>
-                <label htmlFor="" className="text-base font-medium text-gray-900">
+                <label htmlFor="" className="text-base font-medium text-gray-900 dark:text-red-100">
                   {' '}
                   Name{' '}
                 </label>
@@ -120,7 +120,7 @@ export function SignUp() {
                 </div>
               </div>
               <div>
-                <label htmlFor="" className="text-base font-medium text-gray-900">
+                <label htmlFor="" className="text-base font-medium text-gray-900 dark:text-red-100">
                   {' '}
                   Email address{' '}
                 </label>
@@ -137,7 +137,7 @@ export function SignUp() {
               </div>
               <div>
                 <div className="flex items-center justify-between">
-                  <label htmlFor="" className="text-base font-medium text-gray-900">
+                  <label htmlFor="" className="text-base font-medium text-gray-900 dark:text-red-100">
                     {' '}
                     Password{' '}
                   </label>
@@ -145,7 +145,7 @@ export function SignUp() {
                 </div>
                 <div className="mt-2">
                   <input
-                    className="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
+                    className="flex h-10 w-full rounded-md border  border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
                     type="password"
                     name  = "password"
                     placeholder="Password"
@@ -157,7 +157,7 @@ export function SignUp() {
               </div>
               <div>
                 <div className="flex items-center justify-between">
-                  <label htmlFor="" className="text-base font-medium text-gray-900">
+                  <label htmlFor="" className="text-base font-medium text-gray-900 dark:text-red-100">
                     {' '}
                     Confirm Password{' '}
                   </label>
@@ -177,7 +177,7 @@ export function SignUp() {
               <div>
                 <button
                   type="submit"
-                  className="inline-flex w-full items-center justify-center rounded-md bg-black px-3.5 py-2.5 font-semibold leading-7 text-white hover:bg-black/80"
+                  className="inline-flex w-full items-center justify-center rounded-md dark:text-red-100 bg-black px-3.5 py-2.5 font-semibold leading-7 text-white hover:bg-black/80"
                   
                 >
                   Create <ArrowRight className="ml-2" size={16} />

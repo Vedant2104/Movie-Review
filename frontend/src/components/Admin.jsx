@@ -51,8 +51,8 @@ function Admin() {
       {/* Table Container */}
       <div className="px-3 py-4">
         <div className="overflow-x-auto">
-          <table className="w-full text-sm md:text-md rounded-lg shadow-xl bg-white dark:bg-gray-800">
-            <thead>
+          <table className="w-full text-sm md:text-md rounded-lg shadow-xl  bg-white dark:bg-gray-800">
+            <thead >
               <tr className="border-b border-red-200 dark:border-red-900/10 bg-red-100 dark:bg-gray-800">
                 <th className="text-left p-3 px-5 text-red-900 dark:text-red-200">Name</th>
                 <th className="text-left p-3 px-5 text-red-900 dark:text-red-200">Email</th>
