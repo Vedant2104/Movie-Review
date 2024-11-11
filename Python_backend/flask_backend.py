@@ -25,15 +25,35 @@ def make_analysis():
     if 'ImdbId' in data and 'limit' in data:
         ImdbId = data['ImdbId']
         limit = data['limit']
-        df = make_review(ImdbId, limit)
-        df = predictOnDataFrame(df, "reviews", model1, model2, model3, dictionary)
-        result = df.to_dict(orient='records')
 
         client = MongoClient('mongodb://localhost:27017/')
         db = client['reviews']
-        collection = db[f'reviews_{ImdbId}']
-        collection.insert_many(df.to_dict(orient='records'))
+        collection_name = f'reviews_{ImdbId}'
+        collection = db[collection_name]
+        if collection_name in db.list_collection_names():
+            
+            count = collection.count_documents({})
+            if count>=limit:
+                data = list(collection.find({}, {'_id': 1, 'reviews': 1, 'sentiment': 1}).limit(limit))
+            else:
+                df = make_review(ImdbId, limit)
+                df = df[count:]
+                df = predictOnDataFrame(df, "reviews", model1, model2, model3, dictionary)
+                pred = df.to_dict(orient='records')
+                if pred:
+                    collection.insert_many(pred)
+                data = list(collection.find({}, {'_id': 1, 'reviews': 1, 'sentiment': 1}))
+        
+        else:
+            df = make_review(ImdbId, limit)
+            df = predictOnDataFrame(df, "reviews", model1, model2, model3, dictionary)
+            collection.insert_many(df.to_dict(orient='records'))
+            data = list(collection.find({}, {'_id': 1, 'reviews': 1, 'sentiment': 1}))
 
-        return jsonify(result)
+        for record in data:
+            record['_id'] = str(record['_id'])
+        return jsonify(data)
+    return jsonify({'error': 'Invalid input data'}), 400
+
 if __name__ == '__main__':
     app.run(debug=True)

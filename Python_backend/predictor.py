@@ -7,7 +7,7 @@ Created on Sat Aug 17 23:03:18 2024
 import numpy as np
 import pickle
 import cleantext
-import tensorflow
+import tensorflow as tf
 from tensorflow.keras.models import load_model
 from tensorflow.keras.utils import pad_sequences
 
@@ -20,33 +20,35 @@ def cleanReview(review):
     review=cleantext.clean(review, clean_all= False, extra_spaces=True , stopwords=True ,lowercase=True ,numbers=True , punct=True)
     return review
 
-def encodeReview(review, save_map):
-    review=cleanReview(review)
-    encoded_review=[1,]
-    for word in review.split():
-        if word in save_map:
-            encoded_review.append(save_map[word])
-        else:
-            encoded_review.append(2)
-    encoded_review=np.array(encoded_review)
-    encoded_review=np.reshape(encoded_review, (1,len(encoded_review)))
-    encoded_review=pad_sequences(encoded_review,maxlen=2697)
-    return encoded_review
+def encodeReview(reviews, save_map):
+    encoded_reviews = []
+    for review in reviews:
+        review=cleanReview(review)
+        encoded_review=[1,]
+        for word in review.split():
+            if word in save_map:
+                encoded_review.append(save_map[word])
+            else:
+                encoded_review.append(2)
+        encoded_reviews.append(encoded_review)
+        
+    encoded_reviews=pad_sequences(encoded_reviews,maxlen=2697)
+    return tf.convert_to_tensor(encoded_reviews, dtype=tf.int32)
 
-def makePrediction(review, model1, model2, model3):
-    rnn_pred=1 if model1.predict(review)[0][0]>0.5 else 0
-    gru_pred=1 if model2.predict(review)[0][0]>0.5 else 0
-    lstm_pred=1 if model3.predict(review)[0][0]>0.5 else 0
-    
-    return "positive" if rnn_pred+gru_pred+lstm_pred>=2 else "negative"
+
+def makePrediction(reviews, model1, model2, model3):
+    rnn_pred = (model1.predict(reviews) > 0.5).astype(int)
+    gru_pred = (model2.predict(reviews) > 0.5).astype(int)
+    lstm_pred = (model3.predict(reviews) > 0.5).astype(int)
+    final_pred = rnn_pred + gru_pred + lstm_pred
+    return np.where(final_pred >= 2, "positive", "negative")
 
 def predictOnDataFrame(df, review_column, model1, model2, model3, save_map):
     
-    def process_review(row):
-        encoded_review = encodeReview(row[review_column], save_map)
-        return makePrediction(encoded_review, model1, model2, model3)
+    reviews = df[review_column].tolist()
+    reviews = encodeReview(reviews, save_map)
 
-    df['sentiment'] = df.apply(process_review, axis=1)
+    df['sentiment'] = makePrediction(reviews, model1, model2, model3)
     return df
 
 if __name__=="__main__":
