@@ -25,7 +25,7 @@ function App() {
   // console.log(user);
   return (
     <ThemeProvider>
-      <div className="min-h-screen transition-colors duration-300 dark:bg-gray-900">
+      <div className="min-h-screen transition-colors duration-300 dark:bg-[#131316]">
         <Router>
           <Navbar />
           <main className="pt-28 px-4 mx-auto max-w-7xl transition-colors duration-300 dark:text-white">

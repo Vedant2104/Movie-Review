@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router";
 
+
 export default function MainMenu() {
   const navigate = useNavigate();
   const [movie, setMovie] = useState("");
@@ -82,7 +83,7 @@ export default function MainMenu() {
       {/* Search Form */}
       <form
         onSubmit={handleSearch}
-        className="mt-10 mx-auto top-24 z-10 max-w-xl py-2 px-6 rounded-full bg-gray-50 dark:bg-gray-800 border dark:border-gray-700 flex focus-within:border-gray-300"
+        className="mt-10 mx-auto top-24 z-10 max-w-xl py-2 px-6 rounded-full bg-gray-50 dark:bg-blue-gray-900/40 border dark:border-gray-800 flex focus-within:border-gray-300"
       >
         <input
           type="text"
@@ -94,7 +95,7 @@ export default function MainMenu() {
         />
         <button
           type="submit"
-          className="flex flex-row items-center justify-center min-w-[130px] px-4 rounded-full font-medium tracking-wide border disabled:cursor-not-allowed disabled:opacity-50 transition ease-in-out duration-150 text-base bg-red-500 dark:bg-[#0E1117] text-white border-transparent py-1.5 h-[38px] -mr-3"
+          className="flex flex-row items-center justify-center min-w-[130px] px-4 rounded-full font-medium hover:scale-105 tracking-wide border disabled:cursor-not-allowed disabled:opacity-50 transition ease-in-out duration-150 text-base bg-red-500 dark:bg-[#0E1117] text-white border-transparent py-1.5 h-[38px] -mr-3"
         >
           Search
         </button>
@@ -106,7 +107,7 @@ export default function MainMenu() {
           movieData.map((movie) => (
             <div
               key={movie.imdbID}
-              className="m-6 relative rounded-lg shadow-lg group bg-red-100 dark:bg-[#0E1117]  bg-opacity-15 cursor-pointer hover:shadow-xl transition-shadow"
+              className="m-6 relative rounded-lg shadow-lg group bg-red-200 dark:bg-[#0E1117] dark:shadow-blue-gray-800 bg-opacity-15 cursor-pointer hover:shadow-xl transition-shadow"
               style={{
                 width: "250px",
                 height: "350px",

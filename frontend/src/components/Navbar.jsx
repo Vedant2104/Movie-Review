@@ -105,7 +105,7 @@ export function Navbar() {
           isDarkTheme 
             ? 'bg-gradient-to-r from-blue-gray-800 to-black text-white' 
             : 'bg-gradient-to-r from-red-100 to-gray-300 text-gray-900'
-          } rounded-full mx-auto flex items-center justify-between px-4 py-3 sm:px-6 lg:px-8 shadow-xl`}>
+          } rounded-full mx-auto flex items-center justify-between px-4 py-3 sm:px-6 lg:px-8 shadow-lg dark:shadow-blue-gray-900`}>
           {/* Rest of the navbar content remains the same... */}
           {/* Logo and Brand */}
           <Link to="/" className="inline-flex items-center space-x-2 hover:opacity-90 transition-opacity duration-200">
@@ -114,7 +114,7 @@ export function Navbar() {
               src={potato} 
               alt="Rotten Potato Logo"
             />
-            <span className={`font-bold text-lg ${isDarkTheme ? 'text-red-50' : 'text-red-900'}`}>
+            <span className={`font-bold text-lg ${isDarkTheme ? 'text-red-200' : 'text-red-900'}`}>
               Rotten Potato
             </span>
           </Link>

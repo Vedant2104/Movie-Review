@@ -177,7 +177,7 @@ export function SignUp() {
               <div>
                 <button
                   type="submit"
-                  className="inline-flex w-full items-center justify-center rounded-md dark:text-red-100 bg-black px-3.5 py-2.5 font-semibold leading-7 text-white hover:bg-black/80"
+                  className="inline-flex w-full items-center justify-center rounded-md dark:text-red-100 bg-black dark:bg-blue-gray-900 dark:hover:bg-blue-gray-800 px-3.5 py-2.5 font-semibold leading-7 text-white hover:bg-black/80"
                   
                 >
                   Create <ArrowRight className="ml-2" size={16} />

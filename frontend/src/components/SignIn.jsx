@@ -100,7 +100,7 @@ export function SignIn() {
                 <button
                   // type="submit"
                   onClick={handleLogin}
-                  className="inline-flex w-full items-center justify-center dark:text-red-100 rounded-md bg-black px-3.5 py-2.5 font-semibold leading-7 text-white hover:bg-black/80"
+                  className="inline-flex w-full items-center justify-center dark:text-red-100 rounded-md shadow-inner shadow-gray-800  bg-blue-gray-900 px-3.5 py-2.5 font-semibold leading-7 text-white hover:bg-blue-gray-800"
                 >
                   Get started <ArrowRight className="ml-2" size={16} />
                 </button>
