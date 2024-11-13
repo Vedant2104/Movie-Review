@@ -51,7 +51,7 @@ const MovieDetails = () => {
           { ImdbId: id, limit: reviewLimit }
         );
         setReviews(reviewsResponse.data);
-        console.log(reviewsResponse.data);
+        // console.log(reviewsResponse.data);
         calculatePositiveReviewPercentage(reviewsResponse.data);
       } catch (err) {
         setReviewsError(err.message);
@@ -71,7 +71,7 @@ const MovieDetails = () => {
 
   const handleReviewLimitChange = (e) => {
     
-    setReviewLimit(Math.min(Math.max(parseInt(e.target.value), 1), 50));
+    setReviewLimit(Math.min(Math.max(parseInt(e.target.value), 10), 100));
   };
 
   const downloadCSV = () => {
@@ -94,10 +94,10 @@ const MovieDetails = () => {
 
   const toggleReviewSentiment = async (reviewId) => {
     try {
-      console.log(reviewId);
+      // console.log(reviewId);
       await axios.post("http://localhost:8002/api/movie/toggle-sentiment", {
         movieId: id,
-        ommentId : reviewId,
+        commentId : reviewId,
       });
       // Refresh the reviews
       const reviewsResponse = await axios.post(
@@ -230,7 +230,7 @@ const MovieDetails = () => {
               <input
                 type="range"
                 min="10"
-                max="50"
+                max="100"
                 value={reviewLimit}
                 onChange={handleReviewLimitChange}
                 className="w-32 h-2 bg-blue-gray-100 dark:bg-blue-gray-800 rounded-lg cursor-pointer appearance-none"
@@ -238,7 +238,7 @@ const MovieDetails = () => {
               <span>{reviewLimit}</span>
             </div>
           </div>
-          <div className="w-full bg-gray-800/70 dark:bg-[#3f342d5a] rounded-full mb-4">
+          <div className="w-full bg-gray-300/70 dark:bg-[#3f342d5a] rounded-full mb-4">
             <div
               className="bg-green-500 h-8  text-[1rem] ease-in transition-all animate-fill justify-center pt-2 font-medium text-green-100 text-center p-0.5 leading-none rounded-full"
               style={{ width: `${positiveReviewPercentage}%` }}

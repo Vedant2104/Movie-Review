@@ -2,7 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const router = express.Router();
 
-const databaseConnection = mongoose.createConnection('mongodb://localhost:27017/Reviews', {
+const databaseConnection = mongoose.createConnection('mongodb://localhost:27017/reviews', {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   });
@@ -29,16 +29,16 @@ router.post('/toggle-sentiment', async (req, res) => {
         const comment = await MovieCollection.findOne({ _id: new mongoose.Types.ObjectId(commentId) });
         console.log("Comment found:", comment);
 
-        // if (comment) {
+        if (comment) {
             // Toggle the sentiment
             const newSentiment = comment.sentiment === 'positive' ? 'negative' : 'positive';
             comment.sentiment = newSentiment;
             await comment.save();
 
             res.json({ message: 'Sentiment toggled successfully', updatedComment: comment });
-        // } else {
+        } else {
             // res.status(404).json({ message: 'Comment not found' });
-        // }
+        }
     } catch (error) {
         console.error('Error toggling sentiment:', error);
         res.status(500).json({ message: 'Internal server error' });
