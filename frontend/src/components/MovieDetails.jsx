@@ -229,7 +229,7 @@ const MovieDetails = () => {
               <span class>Review Limit:</span>
               <input
                 type="range"
-                min="1"
+                min="10"
                 max="50"
                 value={reviewLimit}
                 onChange={handleReviewLimitChange}
