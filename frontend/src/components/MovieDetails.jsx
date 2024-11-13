@@ -44,6 +44,7 @@ const MovieDetails = () => {
   useEffect(() => {
     const fetchReviews = async () => {
       try {
+        if(reviews == null)
         setLoadingReviews(true);
         const reviewsResponse = await axios.post(
           "http://127.0.0.1:5000/dataset-analysis",
@@ -60,7 +61,7 @@ const MovieDetails = () => {
     };
 
     fetchReviews();
-  }, [id, reviewLimit]);
+  }, [id,reviewLimit]);
 
   const calculatePositiveReviewPercentage = (reviews) => {
     const positiveReviews = reviews.filter((review) => review.sentiment === "positive");
@@ -69,7 +70,7 @@ const MovieDetails = () => {
   };
 
   const handleReviewLimitChange = (e) => {
-    setLoadingReviews(true);
+    
     setReviewLimit(Math.min(Math.max(parseInt(e.target.value), 1), 50));
   };
 
@@ -237,12 +238,12 @@ const MovieDetails = () => {
               <span>{reviewLimit}</span>
             </div>
           </div>
-          <div className="w-full bg-gray-200 dark:bg-blue-gray-800 rounded-full mb-4">
+          <div className="w-full bg-gray-800/70 dark:bg-[#3f342d5a] rounded-full mb-4">
             <div
-              className="bg-green-500 text-xs font-medium text-green-100 text-center p-0.5 leading-none rounded-full"
+              className="bg-green-500 h-8  text-[1rem] ease-in transition-all animate-fill justify-center pt-2 font-medium text-green-100 text-center p-0.5 leading-none rounded-full"
               style={{ width: `${positiveReviewPercentage}%` }}
             >
-              {positiveReviewPercentage.toFixed(2)}%
+              {positiveReviewPercentage.toFixed(2)}% Positive Reviews
             </div>
           </div>
 
@@ -257,10 +258,10 @@ const MovieDetails = () => {
             reviews.map((review, index) => (
               <div
                 key={index}
-                className={`p-6 rounded-lg shadow-md m-4 ${
+                className={`p-6 rounded-lg shadow-md m-4 dark:shadow-gray-900 ${
                   review.sentiment === "positive"
                     ? "bg-green-50 dark:bg-[#173928] dark:text-light-green-300 text-green-800 border border-green-200 dark:border-green-900"
-                    : "bg-red-50 border dark:bg-[#3E2428] dark:text-[#FED7D7] text-red-800 dark:border-[#FED7D7] border-red-200"
+                    : "bg-red-100 border dark:bg-[#3E2428] dark:text-[#FED7D7] text-red-800 dark:border-[#a85a5a] border-red-200"
                 }`}
               >
                 <p
