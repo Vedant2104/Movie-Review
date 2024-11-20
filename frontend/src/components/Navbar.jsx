@@ -86,6 +86,7 @@ export function Navbar() {
 
   const handleSignOut = () => {
     dispatch(removeUser());
+    
     navigate('/', { replace: true });
   };
 

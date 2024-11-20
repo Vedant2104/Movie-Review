@@ -6,7 +6,10 @@ import { useNavigate } from "react-router";
 export default function MainMenu() {
   const navigate = useNavigate();
   const [movie, setMovie] = useState("");
-  const [movieData, setData] = useState([
+  const [movieData, setData] = useState(()=>{
+    const savedMovies = localStorage.getItem('lastSearchMovies');
+    return savedMovies ? JSON.parse(savedMovies) :
+    [
     {
       Title: "The Shawshank Redemption",
       Year: "1994",
@@ -50,7 +53,7 @@ export default function MainMenu() {
         "Poster": "https://m.media-amazon.com/images/M/MV5BNjg1MDQ5MjQ2N15BMl5BanBnXkFtZTYwNjI5NjA3._V1_SX300.jpg"
     }
     
-  ]);
+  ]});
 
   const handleSearch = async (e) => {
     e.preventDefault();
@@ -67,8 +70,16 @@ export default function MainMenu() {
         
       );
       
-      setData(response.data.result);
-      console.log(response.data.result);
+      const searchResults = response.data.result;
+      setData(searchResults);
+      localStorage.setItem('lastSearchMovies', JSON.stringify(searchResults));
+      localStorage.setItem('lastSearchQuery', movie);
+
+      setTimeout(() => {
+        localStorage.removeItem("lastSearchMovies");
+        console.log("lastSearchMovies removed from localStorage");
+      }, 120000); // 2 minutes
+      
     } catch (error) {
       console.error(error);
     }
