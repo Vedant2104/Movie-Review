@@ -56,9 +56,9 @@ const  handleLogout = async(req,res) =>{
 
 const handleForgotPassword = async (req,res) =>{
     const { email } = req.body;
-
   try {
       //Find the user by email
+      console.log("inside try");
       const user = await User.findOne({ email });
       if (!user) {
           return res.status(404).json({ message: 'User not found' });
@@ -74,7 +74,6 @@ const handleForgotPassword = async (req,res) =>{
       user.resetPasswordOtp = otp;
       user.resetPasswordOtpExpires = expiration;
       await user.save();
-
       //Send the OTP via email
       const transporter = nodemailer.createTransport({
           service: 'gmail', // You can use other services too
@@ -83,24 +82,25 @@ const handleForgotPassword = async (req,res) =>{
           secure: false,
           auth: {
               user: 'sikarwarrr315@gmail.com',
-              pass: 'xntb zjgy ocym jaqa',
-          },
-          connectionTimeout:10000,
-      });
-
-      const mailOptions = {
-          from:{
-              name:"Moview Review",
-              address:"sikarwarrr315@gmail.com"
+              pass: 'krlt hrcr uuje rawa',
             },
-          to: user.email,
-          subject: 'Password Reset OTP',
-          text: `You have requested a password reset. Your OTP code is: ${otp}. This code will expire in 10 minutes.`,
-      };
-      const sed = await transporter.sendMail(mailOptions);
-      console.log(sed)
+            connectionTimeout:10000,
+        });
+        
+        const mailOptions = {
+            from:{
+                name:"Moview Review",
+                address:"sikarwarrr315@gmail.com"
+            },
+            to: user.email,
+            subject: 'Password Reset OTP',
+            text: `You have requested a password reset. Your OTP code is: ${otp}. This code will expire in 10 minutes.`,
+        };
+      await transporter.sendMail(mailOptions);
+      console.log("inside try 2");
 
       res.status(200).json({ message: 'OTP has been sent to your email' });
+      
   } catch (err) {
       res.status(500).json({ message: 'Internal server error' });
   }

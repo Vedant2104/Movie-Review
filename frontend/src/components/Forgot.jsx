@@ -25,7 +25,7 @@ export default function Forgot() {
       try {
         console.log("helo")
 
-        const response = await axios.post('http://192.168.149.232:8000/user/forgot-password', {
+        const response = await axios.post('http://localhost:8002/api/user/forgot-password', {
           email,
         });
 
@@ -46,7 +46,7 @@ export default function Forgot() {
             setMessage("Passwords do not match");
             return;
            } 
-           const response = await axios.post('http://192.168.149.232:8000/user/reset-password', {
+           const response = await axios.post('http://localhost:8002/api/user/reset-password', {
             otp,
             email,
             newPassword,

@@ -26,10 +26,10 @@ const AboutPage = () => {
           <h1 className="text-3xl font-bold dark:text-red-50">About Rotten Potato</h1>
         </div>
         <div className="p-6">
-          <p className={`${isDarkTheme ? 'text-gray-300' : 'text-gray-700'}`}>
+          <p className="dark:text-gray-300">
             Rotten Potato is a website dedicated to providing in-depth movie reviews and analysis. Our team of passionate film enthusiasts curates a wide range of content, from the latest blockbusters to hidden gems, helping you make informed decisions on what to watch next.
           </p>
-          <p className={`${isDarkTheme ? 'text-gray-300' : 'text-gray-700'}`}>
+          <p className="dark:text-gray-300">
             At the heart of Rotten Potato is our commitment to delivering honest, unbiased reviews that go beyond the surface-level. We delve into the nuances of each film, exploring the storytelling, cinematography, and performance of the cast, providing a comprehensive understanding of the viewing experience.
           </p>
         </div>
