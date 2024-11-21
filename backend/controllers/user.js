@@ -102,6 +102,7 @@ const handleForgotPassword = async (req,res) =>{
       res.status(200).json({ message: 'OTP has been sent to your email' });
       
   } catch (err) {
+    console.log("inside catch");
       res.status(500).json({ message: 'Internal server error' });
   }
 }
