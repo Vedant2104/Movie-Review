@@ -2,6 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 import json, os
 import pandas as pd
+from pymongo import MongoClient
 
 def scrapeReviews(soup, ImdbId):
     try:
@@ -69,13 +70,21 @@ def start_scraping(ImdbId, limit):
 
 
 def make_review(ImdbId, limit):
-    data = start_scraping(ImdbId, limit)
+    #data = start_scraping(ImdbId, limit)
     #print(data)
-    df = pd.DataFrame(data['reviews'])
-    #print(df.head())
     
-    df["reviews"] = df['short_review'] + df['full_review']
-    df.drop(['short_review', 'full_review'], axis=1, inplace=True)
+    #print(df.head())
+    client = MongoClient("mongodb://localhost:27017/")
+    db = client["all_reviews"]
+    collection = db["movies_reviews"]
+
+    random_count = limit
+
+    data = list(collection.aggregate([{ "$sample": { "size": random_count } }]))
+    reviews = [doc['reviews'] for doc in data]
+    df = pd.DataFrame(reviews)
+    df.columns = ['reviews']
+    print(df)
     return df
 
 if __name__ == "__main__":
